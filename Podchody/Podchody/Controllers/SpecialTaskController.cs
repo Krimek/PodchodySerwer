@@ -5,36 +5,22 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace RESTservice.Controllers
+namespace Podchody.Controllers
 {
     public class SpecialTaskController : ApiController
     {
-        // GET: podchody/api/SpecialTask
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET: podchody/api/SpecialTask/5
-        public string Get(int id)
+        //przy każdej kolejnej wskazówce pobranej musisz się zapytać czy jest specjalne zadanie.
+
+        public string Get(string id)
         {
-            return "value";
+            return "zadanie specjalne, pobrane";
         }
 
         // POST: podchody/api/SpecialTask
-        public void Post([FromBody]string value)
+        public string Post(string id, [FromBody]string value)
         {
-        }
-
-        // PUT: podchody/api/SpecialTask/5
-        public string Put(int id, [FromBody]string value)
-        {
-            return value;
-        }
-
-        // DELETE: podchody/api/SpecialTask/5
-        public void Delete(int id)
-        {
+            return "zadanie specjalne, wykonane";
         }
     }
 }

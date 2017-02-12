@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RESTservice.Models
+namespace Podchody.Models
 {
     public class SpecialTask
     {
+        public static int amountSpecialTask;
+
         string description;
         int bonus;
 

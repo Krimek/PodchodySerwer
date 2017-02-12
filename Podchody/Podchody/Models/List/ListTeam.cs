@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RESTservice.Models
+namespace Podchody.Models
 {
     public static class ListTeam
     {

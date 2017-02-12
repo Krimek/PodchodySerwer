@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RESTservice.Models
+namespace Podchody.Models
 {
     public class Team
     {
@@ -11,8 +11,8 @@ namespace RESTservice.Models
 
         private string nameTeam;
 
-        private TimeSpan startTime;
-        private TimeSpan finishTime;
+        private string startTime;
+        private string finishTime;
 
         private int amountTips;
         private int amountNextPlace;
@@ -21,14 +21,21 @@ namespace RESTservice.Models
         private bool currentStationTips;
         private bool currentStationNextPlace;
 
+        private string[] time;
         private bool[] specialTask;
+
+        private bool onRoad;
+        private bool onFinish;
+
+        public int CurrentStation { get { return currentStation; } set { currentStation = value; } }
+        public bool CurrentStationTips { get { return currentStationTips; } set { currentStationTips = value; } }
+        public bool CurrentStationNextPlace { get { return currentStationNextPlace; } set { currentStationNextPlace = value; } }
 
         public Team(int id)
         {
-            DateTime now = DateTime.Now;
             this.id = id;
-            startTime = new TimeSpan(now.Hour, now.Minute, now.Second);
-            finishTime = new TimeSpan();
+            time = new string[List.ListStation.amountStation];
+            specialTask = new bool[SpecialTask.amountSpecialTask];
         }
 
         public void AcceptSpecialTask(int numberOfTask)
@@ -36,17 +43,21 @@ namespace RESTservice.Models
             specialTask[numberOfTask] = true;
         }
 
+        public void StartTime()
+        {
+            startTime = DateTime.Now.ToString().Substring(11, 5);
+        }
+
         public void StopTime()
         {
-            DateTime now = DateTime.Now;
-            finishTime = new TimeSpan(now.Hour, now.Minute, now.Second);
+            finishTime = DateTime.Now.ToString().Substring(11, 5);
         }
 
         public bool GetTips()
         {
-            if (!currentStationTips)
+            if (!CurrentStationTips)
             {
-                currentStationTips = true;
+                CurrentStationTips = true;
                 amountTips++;
                 return true;
             }
@@ -55,9 +66,9 @@ namespace RESTservice.Models
 
         public bool GetNextPlace()
         {
-            if(!currentStationNextPlace)
+            if(!CurrentStationNextPlace)
             {
-                currentStationNextPlace = true;
+                CurrentStationNextPlace = true;
                 amountNextPlace++;
                 return true;
             }
@@ -71,6 +82,7 @@ namespace RESTservice.Models
             else
                 return false;
         }
+        
 
         private void ChangeSum()
         {

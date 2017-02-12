@@ -5,32 +5,22 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace RESTservice.Controllers
+namespace Podchody.Controllers
 {
     public class TeamController : ApiController
     {
-        // GET: podchody/api/Team
-        public IEnumerable<string> Get()
+                
+        //przy każdym zapytaniu o wskazówkę do kolejnego miejsca musisz się pytać czy jest zad specjalne
+        public string Get(string id)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: podchody/api/Team/5
-        public string Get(int id)
-        {
-            return "value";
+            return "stacje get";
         }
         
 
-        // POST: podchody/api/Team
-        public string Post(int id, [FromBody]string value)
+        // POST: podchody/api/Team --> tutaj się pytają serwera czy w dobrym miejscu są.
+        public string Post(string id, string code)
         {
-            return id.ToString();
-        }
-
-        // PUT: podchody/api/Team/5
-        public void Put(int id, [FromBody]string value)
-        {
+            return "stacje post";
         }
         
     }

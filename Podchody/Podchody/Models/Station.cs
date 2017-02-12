@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RESTservice.Models
+namespace Podchody.Models
 {
     public class Station
     {
@@ -11,7 +11,20 @@ namespace RESTservice.Models
         string tip;
         string place;
 
-        public int code;
-        Location location;
+        private int code;
+        public string fullLocation;
+
+        public bool Equals(int code)
+        {
+            if (this.code == code)
+                return true;
+            else
+                return false;
+        }
+
+        public bool Equals(string fullLocation)
+        {
+            return true;
+        }
     }
 }
