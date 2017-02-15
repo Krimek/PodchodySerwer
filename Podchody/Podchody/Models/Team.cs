@@ -34,7 +34,7 @@ namespace Podchody.Models
         public Team(int id)
         {
             this.id = id;
-            time = new string[List.ListStation.amountStation];
+            //time = new string[List.ListStation.amountStation];
             specialTask = new bool[SpecialTask.amountSpecialTask];
         }
 

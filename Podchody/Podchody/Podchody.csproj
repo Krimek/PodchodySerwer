@@ -85,9 +85,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Page\Index.aspx" />
+    <Content Include="Page\Login.aspx" />
+    <Content Include="Page\Managment.aspx" />
+    <Content Include="Page\NewStalking.aspx" />
+    <Content Include="Page\Registration.aspx" />
+    <Content Include="Page\Scores.aspx" />
+    <Content Include="Style\Style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Validation.cs" />
+    <Content Include="App_Code\Security.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\NextPlaceController.cs" />
     <Compile Include="Controllers\SpecialTaskController.cs" />
@@ -97,21 +106,70 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\List\ListSpecialTask.cs" />
-    <Compile Include="Models\List\ListStation.cs" />
-    <Compile Include="Models\List\ListTeam.cs" />
     <Compile Include="Models\SpecialTask.cs" />
+    <Compile Include="Models\Stalking.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Page\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Managment.aspx.cs">
+      <DependentUpon>Managment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Managment.aspx.designer.cs">
+      <DependentUpon>Managment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\NewStalking.aspx.cs">
+      <DependentUpon>NewStalking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\NewStalking.aspx.designer.cs">
+      <DependentUpon>NewStalking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Registration.aspx.cs">
+      <DependentUpon>Registration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Registration.aspx.designer.cs">
+      <DependentUpon>Registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Scores.aspx.cs">
+      <DependentUpon>Scores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Scores.aspx.designer.cs">
+      <DependentUpon>Scores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Stalking.Master.cs">
+      <DependentUpon>Stalking.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Stalking.Master.designer.cs">
+      <DependentUpon>Stalking.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Page\Stalking.Master" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
