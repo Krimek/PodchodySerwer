@@ -13,6 +13,7 @@ namespace Podchody.Page
         TextBox amountStationTextBox, amountSpecialTaskTextBox;
         Button applyamountStationAndSpecialTaskButton;
 
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -51,6 +52,7 @@ namespace Podchody.Page
 
         private void GenerateStation()
         {
+           
             for(int i =0;i<Convert.ToInt32(amountStationTextBox.Text);i++)
             {
 

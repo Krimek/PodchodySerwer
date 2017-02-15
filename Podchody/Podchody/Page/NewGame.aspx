@@ -3,6 +3,6 @@
 <asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Uzupełnij poniższe pola aby rozpocząć grę.</h2>
     <div id = "PropertiesStalking" runat = "server"></div>
-    <div id = "Station" runat = "server"> </div>
-    <div id = "SpecialTask" runat = "server"></div>
+    <div id = "Station" runat = "server"> Stacje <br /> Numer stacji<t />Wskazówka<p />Podpowiedź dla drużyny<p />Podpowiedź - Lokalizacja<p />Lokalizacja kolejnej stacji<p />Współrzędne</div>
+    <div id = "SpecialTask" runat = "server" hidden ="hidden"></div>
 </asp:Content>
