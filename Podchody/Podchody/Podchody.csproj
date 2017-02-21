@@ -134,6 +134,11 @@
       <DependentUpon>Connection.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\ServiceDataBase.cs" />
+    <Compile Include="Models\UserConnection.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserConnection.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Page\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -202,6 +207,16 @@
     <None Include="Models\Connection.dbml.layout">
       <DependentUpon>Connection.dbml</DependentUpon>
     </None>
+    <Content Include="Models\UserConnection.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>UserConnection.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Models\UserConnection.dbml.layout">
+      <DependentUpon>UserConnection.dbml</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\podchody - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\podchody - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -39,19 +39,19 @@ namespace Podchody.Models
     partial void InsertStation(Station instance);
     partial void UpdateStation(Station instance);
     partial void DeleteStation(Station instance);
+    partial void InsertStationLog(StationLog instance);
+    partial void UpdateStationLog(StationLog instance);
+    partial void DeleteStationLog(StationLog instance);
     partial void InsertTeam(Team instance);
     partial void UpdateTeam(Team instance);
     partial void DeleteTeam(Team instance);
     partial void InsertTeamDetail(TeamDetail instance);
     partial void UpdateTeamDetail(TeamDetail instance);
     partial void DeleteTeamDetail(TeamDetail instance);
-    partial void InsertStationLog(StationLog instance);
-    partial void UpdateStationLog(StationLog instance);
-    partial void DeleteStationLog(StationLog instance);
     #endregion
 		
 		public ConnectionDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CityGameConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CityGameConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -104,6 +104,14 @@ namespace Podchody.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<StationLog> StationLogs
+		{
+			get
+			{
+				return this.GetTable<StationLog>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Team> Teams
 		{
 			get
@@ -119,14 +127,6 @@ namespace Podchody.Models
 				return this.GetTable<TeamDetail>();
 			}
 		}
-		
-		public System.Data.Linq.Table<StationLog> StationLogs
-		{
-			get
-			{
-				return this.GetTable<StationLog>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SpecialTask")]
@@ -136,6 +136,8 @@ namespace Podchody.Models
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _Id;
+		
+		private string _Name;
 		
 		private string _Description;
 		
@@ -153,6 +155,8 @@ namespace Podchody.Models
     partial void OnCreated();
     partial void OnIdChanging(string value);
     partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
     partial void OnBonusChanging(int value);
@@ -168,7 +172,7 @@ namespace Podchody.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Id
 		{
 			get
@@ -184,6 +188,26 @@ namespace Podchody.Models
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="Char(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
@@ -228,7 +252,7 @@ namespace Podchody.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdStation", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdStation", DbType="Char(36) NOT NULL", CanBeNull=false)]
 		public string IdStation
 		{
 			get
@@ -391,7 +415,7 @@ namespace Podchody.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSpecialTask", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSpecialTask", DbType="Char(36) NOT NULL", CanBeNull=false)]
 		public string IdSpecialTask
 		{
 			get
@@ -415,7 +439,7 @@ namespace Podchody.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTeam", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTeam", DbType="Char(36) NOT NULL", CanBeNull=false)]
 		public string IdTeam
 		{
 			get
@@ -595,7 +619,7 @@ namespace Podchody.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Id
 		{
 			get
@@ -786,6 +810,222 @@ namespace Podchody.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StationLog")]
+	public partial class StationLog : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _IdStation;
+		
+		private string _IdTeam;
+		
+		private System.DateTime _Time;
+		
+		private EntityRef<Station> _Station;
+		
+		private EntityRef<Team> _Team;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnIdStationChanging(string value);
+    partial void OnIdStationChanged();
+    partial void OnIdTeamChanging(string value);
+    partial void OnIdTeamChanged();
+    partial void OnTimeChanging(System.DateTime value);
+    partial void OnTimeChanged();
+    #endregion
+		
+		public StationLog()
+		{
+			this._Station = default(EntityRef<Station>);
+			this._Team = default(EntityRef<Team>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdStation", DbType="Char(36) NOT NULL", CanBeNull=false)]
+		public string IdStation
+		{
+			get
+			{
+				return this._IdStation;
+			}
+			set
+			{
+				if ((this._IdStation != value))
+				{
+					if (this._Station.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdStationChanging(value);
+					this.SendPropertyChanging();
+					this._IdStation = value;
+					this.SendPropertyChanged("IdStation");
+					this.OnIdStationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTeam", DbType="Char(36) NOT NULL", CanBeNull=false)]
+		public string IdTeam
+		{
+			get
+			{
+				return this._IdTeam;
+			}
+			set
+			{
+				if ((this._IdTeam != value))
+				{
+					if (this._Team.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdTeamChanging(value);
+					this.SendPropertyChanging();
+					this._IdTeam = value;
+					this.SendPropertyChanged("IdTeam");
+					this.OnIdTeamChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="DateTime NOT NULL")]
+		public System.DateTime Time
+		{
+			get
+			{
+				return this._Time;
+			}
+			set
+			{
+				if ((this._Time != value))
+				{
+					this.OnTimeChanging(value);
+					this.SendPropertyChanging();
+					this._Time = value;
+					this.SendPropertyChanged("Time");
+					this.OnTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_StationLog", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true)]
+		public Station Station
+		{
+			get
+			{
+				return this._Station.Entity;
+			}
+			set
+			{
+				Station previousValue = this._Station.Entity;
+				if (((previousValue != value) 
+							|| (this._Station.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Station.Entity = null;
+						previousValue.StationLogs.Remove(this);
+					}
+					this._Station.Entity = value;
+					if ((value != null))
+					{
+						value.StationLogs.Add(this);
+						this._IdStation = value.Id;
+					}
+					else
+					{
+						this._IdStation = default(string);
+					}
+					this.SendPropertyChanged("Station");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_StationLog", Storage="_Team", ThisKey="IdTeam", OtherKey="Id", IsForeignKey=true)]
+		public Team Team
+		{
+			get
+			{
+				return this._Team.Entity;
+			}
+			set
+			{
+				Team previousValue = this._Team.Entity;
+				if (((previousValue != value) 
+							|| (this._Team.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Team.Entity = null;
+						previousValue.StationLogs.Remove(this);
+					}
+					this._Team.Entity = value;
+					if ((value != null))
+					{
+						value.StationLogs.Add(this);
+						this._IdTeam = value.Id;
+					}
+					else
+					{
+						this._IdTeam = default(string);
+					}
+					this.SendPropertyChanged("Team");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Team")]
 	public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -798,9 +1038,9 @@ namespace Podchody.Models
 		
 		private EntitySet<SpecialTaskLog> _SpecialTaskLogs;
 		
-		private EntityRef<TeamDetail> _TeamDetail;
-		
 		private EntitySet<StationLog> _StationLogs;
+		
+		private EntityRef<TeamDetail> _TeamDetail;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -815,12 +1055,12 @@ namespace Podchody.Models
 		public Team()
 		{
 			this._SpecialTaskLogs = new EntitySet<SpecialTaskLog>(new Action<SpecialTaskLog>(this.attach_SpecialTaskLogs), new Action<SpecialTaskLog>(this.detach_SpecialTaskLogs));
-			this._TeamDetail = default(EntityRef<TeamDetail>);
 			this._StationLogs = new EntitySet<StationLog>(new Action<StationLog>(this.attach_StationLogs), new Action<StationLog>(this.detach_StationLogs));
+			this._TeamDetail = default(EntityRef<TeamDetail>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Id
 		{
 			get
@@ -873,6 +1113,19 @@ namespace Podchody.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_StationLog", Storage="_StationLogs", ThisKey="Id", OtherKey="IdTeam")]
+		public EntitySet<StationLog> StationLogs
+		{
+			get
+			{
+				return this._StationLogs;
+			}
+			set
+			{
+				this._StationLogs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TeamDetail", Storage="_TeamDetail", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
 		public TeamDetail TeamDetail
 		{
@@ -899,19 +1152,6 @@ namespace Podchody.Models
 					}
 					this.SendPropertyChanged("TeamDetail");
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_StationLog", Storage="_StationLogs", ThisKey="Id", OtherKey="IdTeam")]
-		public EntitySet<StationLog> StationLogs
-		{
-			get
-			{
-				return this._StationLogs;
-			}
-			set
-			{
-				this._StationLogs.Assign(value);
 			}
 		}
 		
@@ -1004,7 +1244,7 @@ namespace Podchody.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Id
 		{
 			get
@@ -1156,222 +1396,6 @@ namespace Podchody.Models
 					else
 					{
 						this._Id = default(string);
-					}
-					this.SendPropertyChanged("Team");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StationLog")]
-	public partial class StationLog : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _IdStation;
-		
-		private string _IdTeam;
-		
-		private System.DateTime _Time;
-		
-		private EntityRef<Station> _Station;
-		
-		private EntityRef<Team> _Team;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnIdStationChanging(string value);
-    partial void OnIdStationChanged();
-    partial void OnIdTeamChanging(string value);
-    partial void OnIdTeamChanged();
-    partial void OnTimeChanging(System.DateTime value);
-    partial void OnTimeChanged();
-    #endregion
-		
-		public StationLog()
-		{
-			this._Station = default(EntityRef<Station>);
-			this._Team = default(EntityRef<Team>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdStation", DbType="Char(20) NOT NULL", CanBeNull=false)]
-		public string IdStation
-		{
-			get
-			{
-				return this._IdStation;
-			}
-			set
-			{
-				if ((this._IdStation != value))
-				{
-					if (this._Station.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdStationChanging(value);
-					this.SendPropertyChanging();
-					this._IdStation = value;
-					this.SendPropertyChanged("IdStation");
-					this.OnIdStationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTeam", DbType="Char(20) NOT NULL", CanBeNull=false)]
-		public string IdTeam
-		{
-			get
-			{
-				return this._IdTeam;
-			}
-			set
-			{
-				if ((this._IdTeam != value))
-				{
-					if (this._Team.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdTeamChanging(value);
-					this.SendPropertyChanging();
-					this._IdTeam = value;
-					this.SendPropertyChanged("IdTeam");
-					this.OnIdTeamChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="DateTime NOT NULL")]
-		public System.DateTime Time
-		{
-			get
-			{
-				return this._Time;
-			}
-			set
-			{
-				if ((this._Time != value))
-				{
-					this.OnTimeChanging(value);
-					this.SendPropertyChanging();
-					this._Time = value;
-					this.SendPropertyChanged("Time");
-					this.OnTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_StationLog", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true)]
-		public Station Station
-		{
-			get
-			{
-				return this._Station.Entity;
-			}
-			set
-			{
-				Station previousValue = this._Station.Entity;
-				if (((previousValue != value) 
-							|| (this._Station.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Station.Entity = null;
-						previousValue.StationLogs.Remove(this);
-					}
-					this._Station.Entity = value;
-					if ((value != null))
-					{
-						value.StationLogs.Add(this);
-						this._IdStation = value.Id;
-					}
-					else
-					{
-						this._IdStation = default(string);
-					}
-					this.SendPropertyChanged("Station");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_StationLog", Storage="_Team", ThisKey="IdTeam", OtherKey="Id", IsForeignKey=true)]
-		public Team Team
-		{
-			get
-			{
-				return this._Team.Entity;
-			}
-			set
-			{
-				Team previousValue = this._Team.Entity;
-				if (((previousValue != value) 
-							|| (this._Team.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Team.Entity = null;
-						previousValue.StationLogs.Remove(this);
-					}
-					this._Team.Entity = value;
-					if ((value != null))
-					{
-						value.StationLogs.Add(this);
-						this._IdTeam = value.Id;
-					}
-					else
-					{
-						this._IdTeam = default(string);
 					}
 					this.SendPropertyChanged("Team");
 				}

@@ -12,12 +12,12 @@ namespace Podchody.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Button1.Click += new EventHandler(ButtonClick);
+            NextButton.Click += new EventHandler(NextButtonClick);
         }
 
-        private void ButtonClick(object sender, EventArgs e)
+        private void NextButtonClick(object sender, EventArgs e)
         {
-            Models.ServiceDataBase serv = new Models.ServiceDataBase();
+            Server.Transfer("NewGame.aspx");
         }
     }
 }
