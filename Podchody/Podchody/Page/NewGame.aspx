@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NewStalking.aspx.cs" Inherits="Podchody.Page.NewStalking" MasterPageFile="~/Page/Stalking.Master"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NewGame.aspx.cs" Inherits="Podchody.Page.NewStalking" MasterPageFile="~/Page/Stalking.Master"%>
 
 <asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Uzupełnij poniższe pola aby rozpocząć grę.</h2>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Podchody.App_Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,12 @@ namespace Podchody.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Button1.Click += new EventHandler(ButtonClick);
+        }
 
+        private void ButtonClick(object sender, EventArgs e)
+        {
+            Models.ServiceDataBase serv = new Models.ServiceDataBase();
         }
     }
 }

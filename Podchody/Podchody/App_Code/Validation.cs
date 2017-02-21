@@ -5,15 +5,22 @@ using System.Web;
 
 namespace Podchody.App_Code
 {
-    public class Validation
+    public static class Validation
     {
-        public bool isNumber(string text)
+        public static bool isNumber(string text)
         {
-
-            return true;
+            int result;
+            if (Int32.TryParse(text, out result))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public bool isTime(string text)
+        public static bool isTime(string text)
         {
 
             return true;
