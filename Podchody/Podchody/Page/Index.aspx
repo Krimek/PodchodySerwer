@@ -2,7 +2,7 @@
 
 <asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server">
         <div>
-            Witamy w serwisie służącym do zarządzania grą miejską "Podchody o tron" w dniu 8.04.2017r.
+            Kliknij przycisk aby się zalogować.
         </div>
-        <asp:Button ID="NextButton" runat="server" Text="Dalej" />
+        <asp:Button ID="NextButton" runat="server" Text="Zaloguj" />
 </asp:Content>

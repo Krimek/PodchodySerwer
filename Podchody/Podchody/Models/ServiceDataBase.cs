@@ -18,12 +18,13 @@ namespace Podchody.Models
 
         public void ClearTable()
         {
-            string[] table = { "TEAM", "TEAMDETAIL", "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG" };
+            string[] table = { "TEAM", "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG", "HINTLOG" };
             foreach (string s in table)
             {
                 dataBase.ExecuteCommand("DELETE FROM {0}", s);
             }
         }
+
         #region Dodawanie przy tworzeniu nowej instancji
         public void AddNewTeam(string name)
         {
@@ -31,19 +32,14 @@ namespace Podchody.Models
             Team newTeam = new Team()
             {
                 Id = guid.ToString(),
-                Name = name
-            };
-
-            TeamDetail newTeamDetails = new TeamDetail()
-            {
-                Id = guid.ToString(),
+                Name = name,
                 AmountHint = 0,
                 AmountNextPlace = 0,
                 CurrentStation = 0
             };
+            
 
             dataBase.Teams.InsertOnSubmit(newTeam);
-            dataBase.TeamDetails.InsertOnSubmit(newTeamDetails);
             dataBase.SubmitChanges();
         }
 
@@ -82,12 +78,84 @@ namespace Podchody.Models
         }
         #endregion
 
+        #region Dodawanie rekordów to tabel z logami
+        public bool AddToStationLog(string id)
+        {
+            Team team = GetTeam(id);
+
+            Station station = GetStation(team.CurrentStation);
+
+            HintLog hintLogNew = new HintLog()
+            {
+                IdTeam = team.Id,
+                IdStation = station.Id,
+                Time = DateTime.Now
+            };
+
+            dataBase.HintLogs.InsertOnSubmit(hintLogNew);
+            dataBase.SubmitChanges();
+
+            return true;
+        }
+
+
+        public bool AddToSpecialTaskLog(string id)
+        {
+            if (!IsExistTeam(id))
+                return false;
+            return true;
+        }
+        /// <summary>
+        /// Metoda dodająca zdarzenie do logów podpowiedzi
+        /// </summary>
+        public void AddToHintLog(string id, bool hint, bool nextPlace)
+        {
+
+        }
+
+#endregion
+
+
+        public List<int> GetStationNumber()
+        {
+            IEnumerable<int> data = from st in dataBase.Stations
+                                    select st.NumberOfStation;
+
+            return data.ToList();
+        }
+
+
+        private Team GetTeam(string id)
+        {
+            IEnumerable<Team> data = from team in dataBase.Teams
+                                     where team.Id == id
+                                     select team;
+
+            return data.Single();
+        }
+
+        public List<string> GetSpecialTaskName()
+        {
+            IEnumerable<string> data = from sp in dataBase.SpecialTasks
+                                       select sp.Name;
+
+            return data.ToList();
+        }
+
         public Station GetStation(int numberOfStation)
         {
             IEnumerable<Station> data = from st in dataBase.Stations
                                         where st.NumberOfStation == numberOfStation
                                         select st;
-            return data.First();
+            return data.Single();
+        }
+
+        private Station GetStation(string id)
+        {
+            IEnumerable<Station> station = from st in dataBase.Stations
+                                           where st.Id == id
+                                           select st;
+            return station.Single();
         }
 
         public List<StationLog> GetStationLog(int amount)
@@ -222,14 +290,14 @@ namespace Podchody.Models
 
             return data.ToList();
         }
-
-
-        public List<TeamDetail> GetAllTeamDetails()
+        
+        /// <summary>
+        /// Nie dokończona jeszcze metoda. Sprawdza czy zespół o zadanym id istnieje w bazie
+        /// </summary>
+        public bool IsExistTeam(string id)
         {
-            IEnumerable<TeamDetail> data = from d in dataBase.TeamDetails
-                                           select d;
-
-            return data.ToList();
+            return true;
         }
+
     }
 }

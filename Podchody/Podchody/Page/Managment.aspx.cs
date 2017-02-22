@@ -11,21 +11,26 @@ namespace Podchody.Page
     public partial class Managment : System.Web.UI.Page
     {
         List<Team> teamList;
-        List<TeamDetail> teamDetailList;
-        List<StationLog> stationList;
-        List<SpecialTaskLog> specialTaskList;
+        List<int> stationNumberList;
+        List<string> specialTaskNameList;
         protected void Page_Load(object sender, EventArgs e)
         {
+            CompleteDropList();
+            CompleteDataGrid();
+        }
 
+        private void CompleteDataGrid()
+        {
+            
         }
 
         private void CompleteDropList()
         {
             ServiceDataBase sdb = new ServiceDataBase();
+
             teamList = sdb.GetAllTeam();
-            teamDetailList = sdb.GetAllTeamDetails();
-            stationList = sdb.GetStationLog();
-            specialTaskList = sdb.GetSpecialTaskLog();
+            stationNumberList = sdb.GetStationNumber();
+            specialTaskNameList = sdb.GetSpecialTaskName();
 
             TeamDropDownList.Items.Clear();
             TeamDropDownList.Items.Add("Wszystko");
@@ -36,9 +41,16 @@ namespace Podchody.Page
 
             StationDropDownList.Items.Clear();
             StationDropDownList.Items.Add("Wszystko");
-            foreach (StationLog station in stationList)
+            foreach (int station in stationNumberList)
             {
-                //TeamDropDownList.Items.Add(station);
+                StationDropDownList.Items.Add(station.ToString());
+            }
+
+            SpecialTaskDropDownList.Items.Clear();
+            SpecialTaskDropDownList.Items.Add("Wszystko");
+            foreach(string specialTask in specialTaskNameList)
+            {
+                SpecialTaskDropDownList.Items.Add(specialTask);
             }
         }
     }
