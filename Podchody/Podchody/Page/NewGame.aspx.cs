@@ -12,10 +12,6 @@ namespace Podchody.Page
         string[] stationHeader = { "Numer stacji", "Opis", "Wskazówka", "Następne miejsce", "Lokalizacja", "Adres" };
         string[] specialTaskHeader = { "Nazwa", "Opis", "Bonus" };
 
-        Label amountStationLabel, amountSpecialTaskLabel;
-        TextBox amountStationTextBox, amountSpecialTaskTextBox;
-        Button applyAmountStationAndSpecialTaskButton;
-
         Label[] stationHeaderLabel;
         Label[] specialTaskHeaderLabel;
 
@@ -24,27 +20,13 @@ namespace Podchody.Page
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GeneratePage();
+            if (!IsPostBack)
+                GeneratePage();
         }
 
         private void GeneratePage()
         {
-            amountStationLabel = new Label() { Text = "Ilość stacji" };
-            amountStationTextBox= new TextBox() { Text = "", Width = 40, MaxLength = 2 };
-            amountStationTextBox.TextChanged += new EventHandler(amountStationTextChanged);
-
-            amountSpecialTaskLabel = new Label() { Text = "Ilość zadań soecjalnych" };
-            amountSpecialTaskTextBox = new TextBox() { Text = "", Width = 40, MaxLength = 2 };
-            amountSpecialTaskTextBox.TextChanged += new EventHandler(amountSpecialTaskTextChanged);
-
-            applyAmountStationAndSpecialTaskButton = new Button() { Text = "Dalej" };
-            applyAmountStationAndSpecialTaskButton.Click += new EventHandler(applyAmountStationAndSpecialTaskButton_Click);
-
-            PropertiesStalking.Controls.Add(amountStationLabel);
-            PropertiesStalking.Controls.Add(amountStationTextBox);
-            PropertiesStalking.Controls.Add(amountSpecialTaskLabel);
-            PropertiesStalking.Controls.Add(amountSpecialTaskTextBox);
-            PropertiesStalking.Controls.Add(applyAmountStationAndSpecialTaskButton);
+            applyButton.Click += new EventHandler(applyAmountStationAndSpecialTaskButton_Click);
         }
 
         private void applyAmountStationAndSpecialTaskButton_Click(object sender, EventArgs e)
@@ -122,16 +104,6 @@ namespace Podchody.Page
                 }
 
             }
-        }
-
-        private void amountSpecialTaskTextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void amountStationTextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

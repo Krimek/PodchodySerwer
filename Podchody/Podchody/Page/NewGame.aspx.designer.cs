@@ -13,6 +13,87 @@ namespace Podchody.Page {
     public partial class NewStalking {
         
         /// <summary>
+        /// amountStationLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label amountStationLabel;
+        
+        /// <summary>
+        /// amountStationTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox amountStationTextBox;
+        
+        /// <summary>
+        /// amountSpecialTaskLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label amountSpecialTaskLabel;
+        
+        /// <summary>
+        /// amountSpecialTaskTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox amountSpecialTaskTextBox;
+        
+        /// <summary>
+        /// penaltyHintLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label penaltyHintLabel;
+        
+        /// <summary>
+        /// penaltyHintTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox penaltyHintTextBox;
+        
+        /// <summary>
+        /// penaltyNextPlaceLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label penaltyNextPlaceLabel;
+        
+        /// <summary>
+        /// penaltyNextPlaceTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox penaltyNextPlaceTextBox;
+        
+        /// <summary>
+        /// applyButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button applyButton;
+        
+        /// <summary>
         /// PropertiesStalking control.
         /// </summary>
         /// <remarks>

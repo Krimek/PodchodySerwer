@@ -24,7 +24,7 @@ namespace Podchody.Models
                 dataBase.ExecuteCommand("DELETE FROM {0}", s);
             }
         }
-#region Dodawanie przy tworzeniu nowej instancji
+        #region Dodawanie przy tworzeniu nowej instancji
         public void AddNewTeam(string name)
         {
             guid = Guid.NewGuid();
@@ -64,7 +64,7 @@ namespace Podchody.Models
             dataBase.SubmitChanges();
         }
 
-        public void AddNewSpecialTask(string description, int bonus, int numberOfStation,string name)
+        public void AddNewSpecialTask(string description, int bonus, int numberOfStation, string name)
         {
             guid = Guid.NewGuid();
             Station station = GetStation(numberOfStation);
@@ -80,9 +80,9 @@ namespace Podchody.Models
             dataBase.SpecialTasks.InsertOnSubmit(newSpecialTask);
             dataBase.SubmitChanges();
         }
-#endregion
+        #endregion
 
-        public Station GetStation (int numberOfStation)
+        public Station GetStation(int numberOfStation)
         {
             IEnumerable<Station> data = from st in dataBase.Stations
                                         where st.NumberOfStation == numberOfStation
@@ -90,55 +90,146 @@ namespace Podchody.Models
             return data.First();
         }
 
-        public object[] GetAllStationLog(int amount)
+        public List<StationLog> GetStationLog(int amount)
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
-                               select d;
+                                           select d;
 
-            return data.Take(amount).ToArray();
+            if (data.Count() > amount)
+                return data.Take(amount).ToList();
+            else
+                return data.ToList();
         }
 
-        public object[] GetStationLogByTeamId(string id, int amount)
+        public List<StationLog> GetStationLog()
+        {
+            IEnumerable<StationLog> data = from d in dataBase.StationLogs
+                                           select d;
+
+            return data.ToList();
+        }
+
+        public List<StationLog> GetStationLogByTeamId(string id, int amount)
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
                                            where d.IdTeam == id
                                            select d;
-            return data.Take(amount).ToArray();
+
+            if (data.Count() > amount)
+                return data.Take(amount).ToList();
+            else
+                return data.ToList();
         }
 
-        public object[] GetStationLogByStationId(string id, int amount)
+        public List<StationLog> GetStationLogByTeamId(string id)
+        {
+            IEnumerable<StationLog> data = from d in dataBase.StationLogs
+                                           where d.IdTeam == id
+                                           select d;
+
+            return data.ToList();
+        }
+
+        public List<StationLog> GetStationLogByStationId(string id, int amount)
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
                                            where d.IdStation == id
                                            select d;
 
-            return data.Take(amount).ToArray();
+            if (data.Count() > amount)
+                return data.Take(amount).ToList();
+            else
+                return data.ToList();
         }
 
-        public object[] GetAllSpecialTaskLog(int amount)
+        public List<StationLog> GetStationLogByStationId(string id)
+        {
+            IEnumerable<StationLog> data = from d in dataBase.StationLogs
+                                           where d.IdStation == id
+                                           select d;
+
+            return data.ToList();
+        }
+
+        public List<SpecialTaskLog> GetSpecialTaskLog(int amount)
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                select d;
 
-            return data.Take(amount).ToArray();
+            if (data.Count() > amount)
+                return data.Take(amount).ToList();
+            else
+                return data.ToList();
         }
 
-        public object[] GetSpecialTaskLogByTeamId(string id, int amount)
+        public List<SpecialTaskLog> GetSpecialTaskLog()
+        {
+            IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
+                                               select d;
+
+
+            return data.ToList();
+        }
+
+        public List<SpecialTaskLog> GetSpecialTaskLogByTeamId(string id, int amount)
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                where d.IdTeam == id
                                                select d;
 
-            return data.Take(amount).ToArray();
+            if (data.Count() > amount)
+                return data.Take(amount).ToList();
+            else
+                return data.ToList();
         }
 
-        public object[] GetSpecialTaskLogByStationId(string id, int amount)
+        public List<SpecialTaskLog> GetSpecialTaskLogByTeamId(string id)
+        {
+            IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
+                                               where d.IdTeam == id
+                                               select d;
+
+            return data.ToList();
+        }
+
+        public List<SpecialTaskLog> GetSpecialTaskLogByStationId(string id, int amount)
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                where d.IdSpecialTask == id
                                                select d;
 
-            return data.Take(amount).ToArray();
+            if (data.Count() > amount)
+                return data.Take(amount).ToList();
+            else
+                return data.ToList();
+
+        }
+
+        public List<SpecialTaskLog> GetSpecialTaskLogByStationId(string id)
+        {
+            IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
+                                               where d.IdSpecialTask == id
+                                               select d;
+
+            return data.ToList();
+
+        }
+
+        public List<Team> GetAllTeam()
+        {
+            IEnumerable<Team> data = from d in dataBase.Teams
+                                     select d;
+
+            return data.ToList();
+        }
+
+
+        public List<TeamDetail> GetAllTeamDetails()
+        {
+            IEnumerable<TeamDetail> data = from d in dataBase.TeamDetails
+                                           select d;
+
+            return data.ToList();
         }
     }
 }
