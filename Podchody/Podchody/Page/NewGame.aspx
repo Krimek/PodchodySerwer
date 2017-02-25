@@ -19,7 +19,7 @@
         <asp:TextBox runat="server" ID="penaltyNextPlaceTextBox" MaxLength="2" Width="30"/>
     </div>
     
-    <asp:Button runat="server" ID="applyButton" Text="Dalej" />
+    <asp:Button runat="server" ID="applyButton" Text="Dalej" OnClick="ApplyButton_Click"/>
 
     <div id = "PropertiesStalking" runat = "server"></div>
     <div id = "Station" runat = "server"> </div>

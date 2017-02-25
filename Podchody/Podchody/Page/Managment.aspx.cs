@@ -53,5 +53,14 @@ namespace Podchody.Page
                 SpecialTaskDropDownList.Items.Add(specialTask);
             }
         }
+
+        protected void TeamDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string       selected = TeamDropDownList.Text;
+            if(selected == "Wszyscy")
+            {
+
+            }
+        }
     }
 }

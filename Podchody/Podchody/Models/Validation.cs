@@ -10,7 +10,11 @@ namespace Podchody.App_Code
         public static bool isNumber(string text)
         {
             int result;
-            if (Int32.TryParse(text, out result))
+            if(text == "")
+            {
+                return false;
+            }
+            else if (Int32.TryParse(text, out result) )
             {
                 return true;
             }
