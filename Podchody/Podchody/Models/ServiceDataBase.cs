@@ -66,22 +66,27 @@ namespace Podchody.Models
             dataBase.SubmitChanges();
         }
 
-        public void AddNewSpecialTask(string description, int bonus, int numberOfStation, string name, int numberSpecialTask)
+        public bool AddNewSpecialTask(string description, int bonus, int numberOfStation, string name, int numberSpecialTask)
         {
-            guid = Guid.NewGuid();
-            Station station = GetStation(numberOfStation);
-            SpecialTask newSpecialTask = new SpecialTask()
+            if (numberOfStation <= AmountTeam() && numberOfStation > 0)
             {
-                Id = guid.ToString(),
-                Description = description,
-                Bonus = bonus,
-                Name = name,
-                IdStation = station.Id,
-                NumberOfSpecialTask = numberSpecialTask
-            };
+                guid = Guid.NewGuid();
+                Station station = GetStation(numberOfStation);
+                SpecialTask newSpecialTask = new SpecialTask()
+                {
+                    Id = guid.ToString(),
+                    Description = description,
+                    Bonus = bonus,
+                    Name = name,
+                    IdStation = station.Id,
+                    NumberOfSpecialTask = numberSpecialTask
+                };
 
-            dataBase.SpecialTasks.InsertOnSubmit(newSpecialTask);
-            dataBase.SubmitChanges();
+                dataBase.SpecialTasks.InsertOnSubmit(newSpecialTask);
+                dataBase.SubmitChanges();
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -112,6 +117,12 @@ namespace Podchody.Models
                 return false;
             return true;
         }
+
+        private int AmountTeam()
+        {
+            return dataBase.Stations.Count(); 
+        }
+
         /// <summary>
         /// Metoda dodająca zdarzenie do logów podpowiedzi
         /// </summary>
@@ -126,6 +137,7 @@ namespace Podchody.Models
         public List<int> GetStationNumber()
         {
             IEnumerable<int> data = from st in dataBase.Stations
+                                    orderby st.NumberOfStation
                                     select st.NumberOfStation;
 
             return data.ToList();
@@ -144,6 +156,7 @@ namespace Podchody.Models
         public List<string> GetSpecialTaskName()
         {
             IEnumerable<string> data = from sp in dataBase.SpecialTasks
+                                       orderby sp.Name
                                        select sp.Name;
 
             return data.ToList();
@@ -293,6 +306,7 @@ namespace Podchody.Models
         public List<Team> GetAllTeam()
         {
             IEnumerable<Team> data = from d in dataBase.Teams
+                                     orderby d.Name
                                      select d;
 
             return data.ToList();

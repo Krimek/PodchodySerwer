@@ -94,39 +94,48 @@ namespace Podchody.Page {
         protected global::System.Web.UI.WebControls.Button applyButton;
         
         /// <summary>
-        /// addingStation control.
+        /// addingStationDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingStation;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingStationDiv;
         
         /// <summary>
-        /// addingStationButton control.
+        /// addingStationButtonDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingStationButton;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingStationButtonDiv;
         
         /// <summary>
-        /// addingSpecialTask control.
+        /// addingSpecialTaskDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingSpecialTask;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingSpecialTaskDiv;
         
         /// <summary>
-        /// addingSpecialTaskButton control.
+        /// addingSpecialTaskButtonDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingSpecialTaskButton;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingSpecialTaskButtonDiv;
+        
+        /// <summary>
+        /// finishDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl finishDiv;
     }
 }

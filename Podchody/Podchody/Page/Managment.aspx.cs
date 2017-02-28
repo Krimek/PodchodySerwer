@@ -56,8 +56,12 @@ namespace Podchody.Page
 
         protected void TeamDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string       selected = TeamDropDownList.Text;
+            string selected = TeamDropDownList.Text;
             if(selected == "Wszyscy")
+            {
+
+            }
+            else
             {
 
             }

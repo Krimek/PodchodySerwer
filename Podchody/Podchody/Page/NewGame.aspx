@@ -21,8 +21,9 @@
     <div>
         <asp:Button runat="server" ID="applyButton" Text="Dalej" OnClick="ApplyButton_Click" />
     </div>
-    <div id="addingStation" runat="server"/>
-    <div id="addingStationButton" runat="server" />
-    <div id="addingSpecialTask" runat="server"/>
-    <div id="addingSpecialTaskButton" runat="server"/>
+    <div id="addingStationDiv" runat="server"/>
+    <div id="addingStationButtonDiv" runat="server" />
+    <div id="addingSpecialTaskDiv" runat="server"/>
+    <div id="addingSpecialTaskButtonDiv" runat="server"/>
+    <div id="finishDiv" runat="server" />
 </asp:Content>
