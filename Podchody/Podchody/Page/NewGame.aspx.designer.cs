@@ -94,30 +94,39 @@ namespace Podchody.Page {
         protected global::System.Web.UI.WebControls.Button applyButton;
         
         /// <summary>
-        /// PropertiesStalking control.
+        /// addingStation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PropertiesStalking;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingStation;
         
         /// <summary>
-        /// Station control.
+        /// addingStationButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Station;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingStationButton;
         
         /// <summary>
-        /// SpecialTask control.
+        /// addingSpecialTask control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpecialTask;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingSpecialTask;
+        
+        /// <summary>
+        /// addingSpecialTaskButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addingSpecialTaskButton;
     }
 }

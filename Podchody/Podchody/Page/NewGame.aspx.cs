@@ -9,38 +9,234 @@ namespace Podchody.Page
 {
     public partial class NewStalking : System.Web.UI.Page
     {
-        string[] stationHeader = { "Numer stacji", "Opis", "Wskazówka", "Pełna wskazówka", "Lokalizacja", "Adres" };
-        string[] specialTaskHeader = { "Nazwa", "Opis", "Bonus", "Przy stacji numer: " };
+        string[] stationHeader = { "Numer stacji", "Opis", "Wskazówka", "Pełna wskazówka", "Lokalizacja" };
+        string[] specialTaskHeader = { "Numer Zadania", "Nazwa", "Opis", "Bonus", "Przy stacji numer: " };
 
         Label[] stationHeaderLabel;
         Label[] specialTaskHeaderLabel;
 
-        TextBox[] stationPropertiesTextBox;
-        TextBox[] specialTaskPropertiesTextBox;
+        TextBox[] stationTextBox;
+        TextBox[] specialTaskTextBox;
+
+        private int amountAddingStation = 0;
+        private int amountAddingSpecialTask = 0;
+
+        private int currentAmmountAddingStation = 0;
+        private int currentAmmountAddingSpecialTask = 0;
+
+        Button addStationButton;
+        Button addSpecialTaskButton;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GenerateStation();
+            GenerateSpecialTask();
+            SaveData();
+        }
+        #region Load and Save variable
+        private void LoadData()
+        {
+            currentAmmountAddingStation = (int)ViewState["currentAmmountAddingStation"];
+            amountAddingStation = (int)ViewState["amountAddingStation"];
+            currentAmmountAddingSpecialTask = (int)ViewState["currentAmmountAddingSpecialTask"];
+            amountAddingSpecialTask = (int)ViewState["amountAddingSpecialTask"];
         }
 
+        private void SaveData()
+        { 
+            ViewState["currentAmmountAddingStation"] = currentAmmountAddingStation;
+            ViewState["amountAddingStation"] = amountAddingStation;
+            ViewState["currentAmmountAddingSpecialTask"] = currentAmmountAddingSpecialTask;
+            ViewState["amountAddingSpecialTask"] = amountAddingSpecialTask;
+        }
+        #endregion
+        
         private void GenerateStation()
         {
-            for(int i =0;i<Convert.ToInt32(amountStationTextBox.Text);i++)
+            addingStation.Controls.Clear();
+            addingStationButton.Controls.Clear();
+            stationTextBox = new TextBox[stationHeader.Length];
+            stationHeaderLabel = new Label[stationHeader.Length];
+            for (int i = 0; i < stationHeader.Length; i++)
             {
-                stationPropertiesTextBox = new TextBox[stationHeader.Length];
-                
+                stationHeaderLabel[i] = GenereteLabel(stationHeader[i]);
+                stationTextBox[i] = GenereteTextBox("", 100, 20);
+                addingStation.Controls.Add(stationHeaderLabel[i]);
+                addingStation.Controls.Add(stationTextBox[i]);
             }
+            currentAmmountAddingStation = 1;
+
+            stationTextBox[0].Text = currentAmmountAddingStation.ToString();
+
+            addStationButton = new Button()
+            {
+                Text = "Dodaj",
+                Enabled = false
+            };
+            addStationButton.Click += new EventHandler(AddStationButton_Click);
+            addingStationButton.Controls.Add(addStationButton);
         }
-
-
+        
         private void GenerateSpecialTask()
         {
-            
+            addingSpecialTask.Controls.Clear();
+            addingSpecialTaskButton.Controls.Clear();
+            specialTaskTextBox = new TextBox[specialTaskHeader.Length];
+            specialTaskHeaderLabel = new Label[specialTaskHeader.Length];
+            for (int i = 0; i < specialTaskHeader.Length; i++)
+            {
+                specialTaskHeaderLabel[i] = GenereteLabel(specialTaskHeader[i]);
+                specialTaskTextBox[i] = GenereteTextBox("", 100, 20);
+                addingSpecialTask.Controls.Add(specialTaskHeaderLabel[i]);
+                addingSpecialTask.Controls.Add(specialTaskTextBox[i]);
+            }
+            currentAmmountAddingSpecialTask = 1;
+
+            specialTaskTextBox[0].Text = currentAmmountAddingSpecialTask.ToString();
+
+            addSpecialTaskButton = new Button()
+            {
+                Text = "Dodaj",
+                Enabled = false
+            };
+
+            addSpecialTaskButton.Click += new EventHandler(AddSpecialTaskButton_Click);
+            addingSpecialTaskButton.Controls.Add(addSpecialTaskButton);
         }
 
         protected void ApplyButton_Click(object sender, EventArgs e)
         {
-            GenerateStation();
-            GenerateSpecialTask();
+            Models.ServiceDataBase sdb = new Models.ServiceDataBase();
+            sdb.ClearTable("STATION");
+            sdb.ClearTable("SPECIALTASK");
+
+            currentAmmountAddingStation = 1;
+            amountAddingStation = Convert.ToInt32(amountStationTextBox.Text);
+            currentAmmountAddingSpecialTask = 1;
+            amountAddingSpecialTask = Convert.ToInt32(amountSpecialTaskTextBox.Text);
+
+            UnEnabledAdding();
+            SaveData();
+        }
+
+        private void AddStationButton_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            Models.ServiceDataBase sdb;
+            if (currentAmmountAddingStation < amountAddingStation)
+            {
+                sdb = new Models.ServiceDataBase();
+
+                sdb.AddNewStation(stationTextBox[1].Text, stationTextBox[2].Text, stationTextBox[3].Text, stationTextBox[4].Text, Convert.ToInt32(stationTextBox[0].Text));
+
+                currentAmmountAddingStation++;
+                stationTextBox[0].Text = currentAmmountAddingStation.ToString();
+
+                for (int i = 1; i < stationHeader.Length; i++)
+                {
+                    stationTextBox[i].Text = "";
+                }
+            }
+            if (currentAmmountAddingStation == amountAddingStation)
+            {
+                EnabledAdding(true);
+                if(currentAmmountAddingSpecialTask == amountAddingSpecialTask)
+                {
+                    Finish();
+                }
+            }
+            SaveData();
+        }
+
+
+        private void AddSpecialTaskButton_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            Models.ServiceDataBase sdb;
+            if (currentAmmountAddingSpecialTask < amountAddingSpecialTask)
+            {
+                sdb = new Models.ServiceDataBase();
+
+                sdb.AddNewSpecialTask(specialTaskTextBox[2].Text, Convert.ToInt32(specialTaskTextBox[3].Text), Convert.ToInt32(specialTaskTextBox[4].Text), specialTaskTextBox[1].Text, Convert.ToInt32(specialTaskTextBox[0].Text));
+
+                currentAmmountAddingSpecialTask++;
+                specialTaskTextBox[0].Text = currentAmmountAddingSpecialTask.ToString();
+
+                for (int i = 1; i < specialTaskHeader.Length; i++)
+                {
+                    specialTaskTextBox[i].Text = "";
+                }
+            }
+            if (currentAmmountAddingSpecialTask == amountAddingSpecialTask)
+            {
+                EnabledAdding(false);
+                if (currentAmmountAddingStation == amountAddingStation)
+                {
+                    Finish();
+                }
+            }
+            SaveData();
+        }
+    
+
+        private void EnabledAdding(bool station)
+        {
+            if (station)
+            {
+                for (int i = 1; i < stationHeader.Length; i++)
+                {
+                    stationTextBox[i].Enabled = false;
+                }
+                addStationButton.Enabled = false;
+            }
+            else
+            {
+                for (int i = 1; i < specialTaskHeader.Length; i++)
+                {
+                    specialTaskTextBox[i].Enabled = false;
+                }
+                addSpecialTaskButton.Enabled = false;
+            }
+        }
+
+        private void UnEnabledAdding()
+        {
+            for (int i = 1; i < specialTaskHeader.Length; i++)
+            {
+                specialTaskTextBox[i].Enabled = true;
+            }
+            for (int i = 1; i < stationHeader.Length; i++)
+            {
+                stationTextBox[i].Enabled = true;
+            }
+            addSpecialTaskButton.Enabled = true;
+            addStationButton.Enabled = true;
+        }
+
+        private Label GenereteLabel(string text)
+        {
+            Label label = new Label()
+            {
+                Text = text
+            };
+            return label;
+        }
+
+        private TextBox GenereteTextBox(string text, int width, int height)
+        {
+            TextBox textBox = new TextBox()
+            {
+                Text = text,
+                Width = width,
+                Height = height,
+                Enabled = false
+            };
+            return textBox;
+        }
+
+        private void Finish()
+        {
+            Server.Transfer("managment.aspx");
         }
     }
 }

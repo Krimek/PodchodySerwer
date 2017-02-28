@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NewGame.aspx.cs" Inherits="Podchody.Page.NewStalking" MasterPageFile="~/Page/Stalking.Master"%>
 
-<asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server"    >
     <h2>Uzupełnij poniższe pola aby rozpocząć grę.</h2>
     <div>
         <asp:Label runat="server" ID="amountStationLabel" Text="Wprowadź ilość stacji" />
@@ -18,10 +18,11 @@
         <asp:Label runat="server" ID="penaltyNextPlaceLabel" Text="Kara za wskazanie następnego miejsca" />
         <asp:TextBox runat="server" ID="penaltyNextPlaceTextBox" MaxLength="2" Width="30"/>
     </div>
-    
-    <asp:Button runat="server" ID="applyButton" Text="Dalej" OnClick="ApplyButton_Click"/>
-
-    <div id = "PropertiesStalking" runat = "server"></div>
-    <div id = "Station" runat = "server"> </div>
-    <div id = "SpecialTask" runat = "server"></div>
+    <div>
+        <asp:Button runat="server" ID="applyButton" Text="Dalej" OnClick="ApplyButton_Click" />
+    </div>
+    <div id="addingStation" runat="server"/>
+    <div id="addingStationButton" runat="server" />
+    <div id="addingSpecialTask" runat="server"/>
+    <div id="addingSpecialTaskButton" runat="server"/>
 </asp:Content>

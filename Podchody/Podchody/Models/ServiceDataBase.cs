@@ -16,13 +16,19 @@ namespace Podchody.Models
             dataBase = new ConnectionDataContext();
         }
 
-        public void ClearTable()
+        public void ClearAllTable()
         {
             string[] table = { "TEAM", "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG", "HINTLOG" };
             foreach (string s in table)
             {
                 dataBase.ExecuteCommand("DELETE FROM {0}", s);
             }
+        }
+
+        public void ClearTable(string nameTable)
+        {
+            string s = "DELETE FROM " + nameTable;
+            dataBase.ExecuteCommand(s);
         }
 
         #region Dodawanie przy tworzeniu nowej instancji
@@ -60,7 +66,7 @@ namespace Podchody.Models
             dataBase.SubmitChanges();
         }
 
-        public void AddNewSpecialTask(string description, int bonus, int numberOfStation, string name)
+        public void AddNewSpecialTask(string description, int bonus, int numberOfStation, string name, int numberSpecialTask)
         {
             guid = Guid.NewGuid();
             Station station = GetStation(numberOfStation);
@@ -71,6 +77,7 @@ namespace Podchody.Models
                 Bonus = bonus,
                 Name = name,
                 IdStation = station.Id,
+                NumberOfSpecialTask = numberSpecialTask
             };
 
             dataBase.SpecialTasks.InsertOnSubmit(newSpecialTask);

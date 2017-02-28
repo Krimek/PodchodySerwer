@@ -17,7 +17,7 @@ namespace Podchody.Page
 
         private void NextButtonClick(object sender, EventArgs e)
         {
-            Server.Transfer("Managment.aspx");
+            Server.Transfer("NewGame.aspx");
         }
     }
 }
