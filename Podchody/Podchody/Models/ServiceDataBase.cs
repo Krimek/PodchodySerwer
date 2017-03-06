@@ -32,7 +32,7 @@ namespace Podchody.Models
         }
 
         #region Dodawanie przy tworzeniu nowej instancji
-        public void AddNewTeam(string name)
+        public string AddNewTeam(string name)
         {
             guid = Guid.NewGuid();
             Team newTeam = new Team()
@@ -47,6 +47,8 @@ namespace Podchody.Models
 
             dataBase.Teams.InsertOnSubmit(newTeam);
             dataBase.SubmitChanges();
+
+            return guid.ToString();
         }
 
         public void AddNewStation(string desciption, string hint, string nextPlace, string localization, int numberStation)

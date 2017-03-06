@@ -15,13 +15,34 @@ namespace Podchody.Controllers
         // GET: api/Start/5
         public string Get()
         {
-            IEnumerable<string> headerValues = Request.Headers.GetValues("Id");
-            var id = headerValues.FirstOrDefault();
-            //var request = WebOperationContext.Current.IncomingRequest;
-            //string header = request.Headers[HttpRequestHeader.Cookie];
-            //var r = Request.Headers;
-            //string c = r.GetValues("id").Single();
-            return id;
+            string name, code;
+            try
+            {
+                code = Request.Headers.GetValues("Code").FirstOrDefault();
+            }
+            catch
+            {
+                return "Can't find 'code' header";
+            }
+            try
+            {
+                name = Request.Headers.GetValues("Name").FirstOrDefault();
+            }
+            catch
+            {
+                return "Can't find 'name' header";
+            }
+
+            Models.ServiceDataBase db = new Models.ServiceDataBase();
+
+            App_Code.Security sec = new App_Code.Security();
+            if(!sec.CheckedStartCode(code))
+            {
+                return "Wrong code";
+            }
+
+            return db.AddNewTeam(name);
+
         }
     }
 }
