@@ -26,4 +26,5 @@
     <div id="addingSpecialTaskDiv" runat="server"/>
     <div id="addingSpecialTaskButtonDiv" runat="server"/>
     <div id="finishDiv" runat="server" />
+        
 </asp:Content>

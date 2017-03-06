@@ -178,35 +178,12 @@ namespace Podchody.Models
             return station.Single();
         }
 
-        public List<StationLog> GetStationLog(int amount)
-        {
-            IEnumerable<StationLog> data = from d in dataBase.StationLogs
-                                           select d;
-
-            if (data.Count() > amount)
-                return data.Take(amount).ToList();
-            else
-                return data.ToList();
-        }
-
         public List<StationLog> GetStationLog()
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
                                            select d;
 
             return data.ToList();
-        }
-
-        public List<StationLog> GetStationLogByTeamId(string id, int amount)
-        {
-            IEnumerable<StationLog> data = from d in dataBase.StationLogs
-                                           where d.IdTeam == id
-                                           select d;
-
-            if (data.Count() > amount)
-                return data.Take(amount).ToList();
-            else
-                return data.ToList();
         }
 
         public List<StationLog> GetStationLogByTeamId(string id)
@@ -218,18 +195,6 @@ namespace Podchody.Models
             return data.ToList();
         }
 
-        public List<StationLog> GetStationLogByStationId(string id, int amount)
-        {
-            IEnumerable<StationLog> data = from d in dataBase.StationLogs
-                                           where d.IdStation == id
-                                           select d;
-
-            if (data.Count() > amount)
-                return data.Take(amount).ToList();
-            else
-                return data.ToList();
-        }
-
         public List<StationLog> GetStationLogByStationId(string id)
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
@@ -237,17 +202,6 @@ namespace Podchody.Models
                                            select d;
 
             return data.ToList();
-        }
-
-        public List<SpecialTaskLog> GetSpecialTaskLog(int amount)
-        {
-            IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
-                                               select d;
-
-            if (data.Count() > amount)
-                return data.Take(amount).ToList();
-            else
-                return data.ToList();
         }
 
         public List<SpecialTaskLog> GetSpecialTaskLog()
@@ -259,18 +213,6 @@ namespace Podchody.Models
             return data.ToList();
         }
 
-        public List<SpecialTaskLog> GetSpecialTaskLogByTeamId(string id, int amount)
-        {
-            IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
-                                               where d.IdTeam == id
-                                               select d;
-
-            if (data.Count() > amount)
-                return data.Take(amount).ToList();
-            else
-                return data.ToList();
-        }
-
         public List<SpecialTaskLog> GetSpecialTaskLogByTeamId(string id)
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
@@ -278,19 +220,6 @@ namespace Podchody.Models
                                                select d;
 
             return data.ToList();
-        }
-
-        public List<SpecialTaskLog> GetSpecialTaskLogByStationId(string id, int amount)
-        {
-            IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
-                                               where d.IdSpecialTask == id
-                                               select d;
-
-            if (data.Count() > amount)
-                return data.Take(amount).ToList();
-            else
-                return data.ToList();
-
         }
 
         public List<SpecialTaskLog> GetSpecialTaskLogByStationId(string id)

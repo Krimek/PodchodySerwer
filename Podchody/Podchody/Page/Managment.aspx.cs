@@ -15,13 +15,8 @@ namespace Podchody.Page
         List<string> specialTaskNameList;
         protected void Page_Load(object sender, EventArgs e)
         {
-            CompleteDropList();
-            CompleteDataGrid();
-        }
-
-        private void CompleteDataGrid()
-        {
-            
+            if (!IsPostBack)
+                CompleteDropList();
         }
 
         private void CompleteDropList()
@@ -56,8 +51,8 @@ namespace Podchody.Page
 
         protected void TeamDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selected = TeamDropDownList.Text;
-            if(selected == "Wszyscy")
+            string selected = TeamDropDownList.SelectedItem.ToString();
+            if (selected == "Wszyscy")
             {
 
             }
@@ -65,6 +60,16 @@ namespace Podchody.Page
             {
 
             }
+        }
+
+        protected void StationDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SpecialTaskDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
