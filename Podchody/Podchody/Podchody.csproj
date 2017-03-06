@@ -137,6 +137,9 @@
       <DependentUpon>Connection.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\ServiceDataBase.cs" />
+    <Compile Include="Models\ServiceSpecialTask.cs" />
+    <Compile Include="Models\ServiceTeam.cs" />
+    <Compile Include="Models\ServiceStation.cs" />
     <Compile Include="Models\UserConnection.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -215,9 +218,9 @@
       <LastGenOutput>UserConnection.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Models\UserConnection.dbml.layout">
+    <None Include="Models\UserConnection.dbml.layout">
       <DependentUpon>UserConnection.dbml</DependentUpon>
-    </Content>
+    </None>
     <None Include="Properties\PublishProfiles\podchody - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\podchody - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">

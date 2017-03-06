@@ -32,7 +32,7 @@ namespace Podchody.Models
         }
 
         #region Dodawanie przy tworzeniu nowej instancji
-        public string AddNewTeam(string name)
+        public Guid AddNewTeam(string name)
         {
             guid = Guid.NewGuid();
             Team newTeam = new Team()
@@ -48,7 +48,7 @@ namespace Podchody.Models
             dataBase.Teams.InsertOnSubmit(newTeam);
             dataBase.SubmitChanges();
 
-            return guid.ToString();
+            return guid;
         }
 
         public void AddNewStation(string desciption, string hint, string nextPlace, string localization, int numberStation)
@@ -113,7 +113,7 @@ namespace Podchody.Models
         }
 
 
-        public bool AddToSpecialTaskLog(string id)
+        public bool AddToSpecialTaskLog(Guid id)
         {
             if (!IsExistTeam(id))
                 return false;
@@ -246,9 +246,14 @@ namespace Podchody.Models
         /// <summary>
         /// Nie dokończona jeszcze metoda. Sprawdza czy zespół o zadanym id istnieje w bazie
         /// </summary>
-        public bool IsExistTeam(string id)
+        public bool IsExistTeam(Guid id)
         {
             return true;
+        }
+
+        public bool IsExistTeam(string name)
+        {
+            return false;
         }
 
     }

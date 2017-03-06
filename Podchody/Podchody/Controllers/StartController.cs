@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Podchody.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -11,37 +12,40 @@ namespace Podchody.Controllers
 {
     public class StartController : ApiController
     {
-
-        // GET: api/Start/5
-        public string Get()
+        [HttpGet]
+        public IHttpActionResult Get()
         {
+            ServiceTeam serviceTeam = new ServiceTeam();
+            App_Code.Security sec = new App_Code.Security();
+            string s = "";
             string name, code;
             try
             {
+                s = "Code";
                 code = Request.Headers.GetValues("Code").FirstOrDefault();
-            }
-            catch
-            {
-                return "Can't find 'code' header";
-            }
-            try
-            {
+                s = "Name";
                 name = Request.Headers.GetValues("Name").FirstOrDefault();
             }
             catch
             {
-                return "Can't find 'name' header";
+                string error = "Can't find " + s + " in header";
+                return BadRequest(error);
             }
-
-            Models.ServiceDataBase db = new Models.ServiceDataBase();
-
-            App_Code.Security sec = new App_Code.Security();
+            
             if(!sec.CheckedStartCode(code))
             {
-                return "Wrong code";
+                return BadRequest("Wrong code");
             }
 
-            return db.AddNewTeam(name);
+            Guid g = serviceTeam.AddTeam(name);
+
+            if (g.Equals(Guid.Empty))
+            {
+                s = "Name " + name + " is exist in current game";
+                return BadRequest(s);
+            }
+
+            return Ok(g);
 
         }
     }
