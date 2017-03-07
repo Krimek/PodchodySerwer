@@ -41,7 +41,7 @@ namespace Podchody.Models
                 Name = name,
                 AmountHint = 0,
                 AmountNextPlace = 0,
-                CurrentStation = 0
+                CurrentStation = 1
             };
             
 
@@ -70,7 +70,7 @@ namespace Podchody.Models
 
         public bool AddNewSpecialTask(string description, int bonus, int numberOfStation, string name, int numberSpecialTask)
         {
-            if (numberOfStation <= AmountTeam() && numberOfStation > 0)
+            if (numberOfStation <= AmountStation() && numberOfStation > 0)
             {
                 guid = Guid.NewGuid();
                 Station station = GetStation(numberOfStation);
@@ -99,14 +99,16 @@ namespace Podchody.Models
 
             Station station = GetStation(team.CurrentStation);
 
-            HintLog hintLogNew = new HintLog()
+            StationLog stationLogNew = new StationLog()
             {
                 IdTeam = team.Id,
                 IdStation = station.Id,
                 Time = DateTime.Now
             };
 
-            dataBase.HintLogs.InsertOnSubmit(hintLogNew);
+            team.CurrentStation++;
+            dataBase.StationLogs.InsertOnSubmit(stationLogNew);
+
             dataBase.SubmitChanges();
 
             return true;
@@ -120,7 +122,7 @@ namespace Podchody.Models
             return true;
         }
 
-        private int AmountTeam()
+        public int AmountStation()
         {
             return dataBase.Stations.Count(); 
         }
@@ -130,7 +132,37 @@ namespace Podchody.Models
         /// </summary>
         public void AddToHintLog(string id, bool hint, bool nextPlace)
         {
+            Team team = GetTeam(id);
 
+            Station station = GetStation(team.CurrentStation);
+            
+            if (!IsHint(station.Id, team.Id, true, false))
+            {
+                team.AmountHint++;
+            }
+            else if (!IsHint(station.Id, team.Id, false, true))
+            {
+                team.AmountNextPlace++;
+            }
+
+            HintLog hintLogNew = new HintLog()
+            {
+                Id = dataBase.HintLogs.Max(d => d.Id) + 1,
+                IdStation = station.Id,
+                IdTeam = team.Id,
+                Time = DateTime.Now
+            };
+
+            if (hint)
+                hintLogNew.Hint = true;
+
+            if (nextPlace)
+                hintLogNew.NextPlace = true;
+
+            dataBase.Teams.InsertOnSubmit(team);
+
+            dataBase.HintLogs.InsertOnSubmit(hintLogNew);
+            dataBase.SubmitChanges();
         }
 
 #endregion
@@ -146,7 +178,7 @@ namespace Podchody.Models
         }
 
 
-        private Team GetTeam(string id)
+        public Team GetTeam(string id)
         {
             IEnumerable<Team> data = from team in dataBase.Teams
                                      where team.Id == id
@@ -234,6 +266,38 @@ namespace Podchody.Models
 
         }
 
+        public bool IsHint(string idStation, string idTeam, bool hint, bool nextPlace)
+        {
+            IEnumerable<HintLog> data = from d in dataBase.HintLogs
+                                        where d.IdTeam == idTeam.ToString()
+                                        where d.IdStation == idStation.ToString()
+                                        select d;
+            if (data.Count() > 0)
+            {
+                if (hint)
+                {
+                    foreach (HintLog h in data)
+                    {
+                        if (h.Hint)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                if (nextPlace)
+                {
+                    foreach (HintLog h in data)
+                    {
+                        if (h.NextPlace)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         public List<Team> GetAllTeam()
         {
             IEnumerable<Team> data = from d in dataBase.Teams
@@ -248,13 +312,26 @@ namespace Podchody.Models
         /// </summary>
         public bool IsExistTeam(Guid id)
         {
-            return true;
+            List<Team> listTeam = GetAllTeam();
+            foreach (Team team in listTeam)
+            {
+                if (team.Id == id.ToString())
+                    return true;
+            }
+            return false;
         }
 
         public bool IsExistTeam(string name)
         {
+            List<Team> listTeam = GetAllTeam();
+            foreach(Team team in listTeam)
+            {
+                if (team.Name == name)
+                    return true;
+            }
             return false;
         }
+        
 
     }
 }

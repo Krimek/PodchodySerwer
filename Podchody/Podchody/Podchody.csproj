@@ -123,7 +123,7 @@
     <Compile Include="App_Code\Validation.cs" />
     <Compile Include="App_Code\Security.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\NextPlaceController.cs" />
+    <Compile Include="Controllers\FullTipController.cs" />
     <Compile Include="Controllers\SpecialTaskController.cs" />
     <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Controllers\TeamController.cs" />

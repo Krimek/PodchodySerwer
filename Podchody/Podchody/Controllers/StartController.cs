@@ -12,8 +12,8 @@ namespace Podchody.Controllers
 {
     public class StartController : ApiController
     {
-        [HttpGet]
-        public IHttpActionResult Get()
+        [HttpPost]
+        public IHttpActionResult Post()
         {
             ServiceTeam serviceTeam = new ServiceTeam();
             App_Code.Security sec = new App_Code.Security();
@@ -21,10 +21,10 @@ namespace Podchody.Controllers
             string name, code;
             try
             {
-                s = "Code";
-                code = Request.Headers.GetValues("Code").FirstOrDefault();
-                s = "Name";
-                name = Request.Headers.GetValues("Name").FirstOrDefault();
+                s = "code";
+                code = Request.Headers.GetValues(s).FirstOrDefault();
+                s = "name";
+                name = Request.Headers.GetValues(s).FirstOrDefault();
             }
             catch
             {

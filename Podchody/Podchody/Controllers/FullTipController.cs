@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Podchody.Controllers
 {
-    public class TipController : ApiController
+    public class FullTipController : ApiController
     {
         [HttpPost]
         public IHttpActionResult Post()
@@ -26,7 +26,7 @@ namespace Podchody.Controllers
                 string error = "Can't find " + s + "headers";
                 return BadRequest(error);
             }
-            if (serviceTeam.AddTip(id) != "OK")
+            if(serviceTeam.AddFullTip(id) != "OK")
             {
                 string error = "Wrong data";
                 return BadRequest(error);

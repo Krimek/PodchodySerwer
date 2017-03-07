@@ -19,7 +19,28 @@ namespace Podchody.Models
         {
             if (db.IsExistTeam(name))
                 return Guid.Empty;
+
             return db.AddNewTeam(name);
+        }
+
+        public string AddTip(string g)
+        {
+            if(db.IsExistTeam(g))
+            {
+                db.AddToHintLog(g.ToString(), true, false);
+                return "OK";
+            }
+            return "Wrong id Team";
+        }
+
+        public string AddFullTip(string g)
+        {
+            if (db.IsExistTeam(g))
+            {
+                db.AddToHintLog(g.ToString(), false, true);
+                return "OK";
+            }
+            return "Wrong id Team";
         }
     }
 }

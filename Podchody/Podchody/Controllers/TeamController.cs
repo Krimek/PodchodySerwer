@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Podchody.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,19 +10,31 @@ namespace Podchody.Controllers
 {
     public class TeamController : ApiController
     {
-                
-        //przy każdym zapytaniu o wskazówkę do kolejnego miejsca musisz się pytać czy jest zad specjalne
-        public string Get(string id)
+        [HttpPost]
+        public IHttpActionResult Post()
         {
-            return "stacje get";
-        }
-        
+            ServiceStation service = new ServiceStation();
+            Station st;
+            string id, s = "";
+            try
+            {
+                s = "id";
+                id = Request.Headers.GetValues(s).FirstOrDefault();
+            }
+            catch
+            {
+                string error = "Can't find " + s + "headers";
+                return BadRequest(error);
+            }
 
-        // POST: podchody/api/Team --> tutaj się pytają serwera czy w dobrym miejscu są.
-        public string Post(string id, string code)
-        {
-            return "stacje post";
+            st = service.GetNextStation(id);
+            if (service.IsFinish(id))
+                return Ok("Finish");
+
+            if (st == null)
+                return BadRequest("Wrong Id number");
+            else
+                return Ok(Json(st));
         }
-        
     }
 }
