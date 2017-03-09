@@ -99,8 +99,11 @@ namespace Podchody.Models
 
             Station station = GetStation(team.CurrentStation);
 
+            guid = Guid.NewGuid();
+
             StationLog stationLogNew = new StationLog()
             {
+                Id = guid.ToString(),
                 IdTeam = team.Id,
                 IdStation = station.Id,
                 Time = DateTime.Now
@@ -145,9 +148,11 @@ namespace Podchody.Models
                 team.AmountNextPlace++;
             }
 
+            guid = Guid.NewGuid();
+
             HintLog hintLogNew = new HintLog()
             {
-                Id = dataBase.HintLogs.Max(d => d.Id) + 1,
+                Id = guid.ToString(),
                 IdStation = station.Id,
                 IdTeam = team.Id,
                 Time = DateTime.Now

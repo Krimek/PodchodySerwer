@@ -34,7 +34,7 @@ namespace Podchody.Controllers
             if (st == null)
                 return BadRequest("Wrong Id number");
             else
-                return Ok(Json(st));
+                return Ok(st);
         }
     }
 }
