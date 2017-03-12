@@ -27,13 +27,6 @@ namespace Podchody.Page
             stationNumberList = sdb.GetStationNumber();
             specialTaskNameList = sdb.GetSpecialTaskName();
 
-            TeamDropDownList.Items.Clear();
-            TeamDropDownList.Items.Add("Wszystko");
-            foreach (Team team in teamList)
-            {
-                TeamDropDownList.Items.Add(team.Name);
-            }
-
             StationDropDownList.Items.Clear();
             StationDropDownList.Items.Add("Wszystko");
             foreach (int station in stationNumberList)
@@ -46,19 +39,6 @@ namespace Podchody.Page
             foreach(string specialTask in specialTaskNameList)
             {
                 SpecialTaskDropDownList.Items.Add(specialTask);
-            }
-        }
-
-        protected void TeamDropDownList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selected = TeamDropDownList.SelectedItem.ToString();
-            if (selected == "Wszyscy")
-            {
-
-            }
-            else
-            {
-
             }
         }
 

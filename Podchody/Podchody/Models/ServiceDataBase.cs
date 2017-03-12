@@ -313,7 +313,7 @@ namespace Podchody.Models
         }
         
         /// <summary>
-        /// Nie dokończona jeszcze metoda. Sprawdza czy zespół o zadanym id istnieje w bazie
+        /// Sprawdza czy zespół o zadanym id lub nazwie istnieje w bazie
         /// </summary>
         public bool IsExistTeam(Guid id)
         {

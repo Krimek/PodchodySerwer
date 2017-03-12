@@ -23,22 +23,32 @@ namespace Podchody.Models
             return db.AddNewTeam(name);
         }
 
-        public string AddTip(string g)
+        public string AddTip(string id)
         {
-            if(db.IsExistTeam(g))
+            Guid g;
+            if (!Guid.TryParse(id, out g))
+            {
+                return "Zly format id";
+            }
+            if (db.IsExistTeam(g))
             {
                 db.AddToHintLog(g.ToString(), true, false);
-                return "OK";
+                return "";
             }
             return "Wrong id Team";
         }
 
-        public string AddFullTip(string g)
+        public string AddFullTip(string id)
         {
+            Guid g;
+            if (!Guid.TryParse(id, out g))
+            {
+                return "Zly format id";
+            }
             if (db.IsExistTeam(g))
             {
                 db.AddToHintLog(g.ToString(), false, true);
-                return "OK";
+                return "";
             }
             return "Wrong id Team";
         }

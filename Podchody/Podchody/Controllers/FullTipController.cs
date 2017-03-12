@@ -26,10 +26,10 @@ namespace Podchody.Controllers
                 string error = "Can't find " + s + "headers";
                 return BadRequest(error);
             }
-            if(serviceTeam.AddFullTip(id) != "OK")
+            s = serviceTeam.AddFullTip(id);
+            if (s != "")
             {
-                string error = "Wrong data";
-                return BadRequest(error);
+                return BadRequest(s);
             }
 
             return Ok();

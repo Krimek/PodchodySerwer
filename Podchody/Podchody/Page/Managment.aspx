@@ -2,8 +2,6 @@
 
 <asp:Content ID="Main" ContentPlaceHolderID="MainContent" runat="server">
     <h3>Drużyny</h3>
-    <asp:DropDownList ID="TeamDropDownList" runat="server" OnSelectedIndexChanged="TeamDropDownList_SelectedIndexChanged" AutoPostBack="true">
-    </asp:DropDownList>
     <asp:DataGrid ID="TeamDataGrid" runat="server">
     </asp:DataGrid>
     <h3>Stacje</h3>

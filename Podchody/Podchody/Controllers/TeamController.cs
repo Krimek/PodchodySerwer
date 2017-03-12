@@ -11,7 +11,7 @@ namespace Podchody.Controllers
     public class TeamController : ApiController
     {
         [HttpPost]
-        public IHttpActionResult Post()
+        public IHttpActionResult Pos()
         {
             ServiceStation service = new ServiceStation();
             Station st;
@@ -26,15 +26,16 @@ namespace Podchody.Controllers
                 string error = "Can't find " + s + "headers";
                 return BadRequest(error);
             }
+            s = service.GetNextStation(id, out st);
+            if(s != "")
+            {
+                return BadRequest(s);
+            }
 
-            st = service.GetNextStation(id);
             if (service.IsFinish(id))
                 return Ok("Finish");
 
-            if (st == null)
-                return BadRequest("Wrong Id number");
-            else
-                return Ok(st);
+            return Ok(st);
         }
     }
 }
