@@ -16,7 +16,11 @@ namespace Podchody.Controllers
         public IHttpActionResult Post()
         {
             ServiceTeam serviceTeam = new ServiceTeam();
+            ServiceStation serviceStation = new ServiceStation();
+            ServiceSpecialTask serviceSpecialTask = new ServiceSpecialTask();
+
             App_Code.Security sec = new App_Code.Security();
+
             string s = "";
             string name, code;
             try
@@ -31,8 +35,8 @@ namespace Podchody.Controllers
                 string error = "Can't find " + s + " in header";
                 return BadRequest(error);
             }
-            
-            if(!sec.CheckedStartCode(code))
+
+            if (!sec.CheckedStartCode(code))
             {
                 return BadRequest("Wrong code");
             }
@@ -45,8 +49,7 @@ namespace Podchody.Controllers
                 return BadRequest(s);
             }
 
-            return Ok(g);
-
+            return Ok(new { id = g, NumberOfStation = serviceStation.NumberOfStation(), NumberOfSpecialTask = serviceSpecialTask.NumberOfSpecialTask() });
         }
     }
 }

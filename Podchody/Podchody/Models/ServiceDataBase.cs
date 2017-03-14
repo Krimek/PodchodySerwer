@@ -131,6 +131,11 @@ namespace Podchody.Models
             return dataBase.Stations.Count(); 
         }
 
+        internal int AmountSpecialTask()
+        {
+            return dataBase.SpecialTasks.Count();
+        }
+
         /// <summary>
         /// Metoda dodająca zdarzenie do logów podpowiedzi
         /// </summary>
@@ -220,6 +225,7 @@ namespace Podchody.Models
         public List<StationLog> GetStationLog()
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
+                                           orderby d.Time descending
                                            select d;
 
             return data.ToList();
@@ -229,6 +235,7 @@ namespace Podchody.Models
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
                                            where d.IdTeam == id
+                                           orderby d.Time descending
                                            select d;
 
             return data.ToList();
@@ -238,6 +245,7 @@ namespace Podchody.Models
         {
             IEnumerable<StationLog> data = from d in dataBase.StationLogs
                                            where d.IdStation == id
+                                           orderby d.Time descending
                                            select d;
 
             return data.ToList();
@@ -246,6 +254,7 @@ namespace Podchody.Models
         public List<SpecialTaskLog> GetSpecialTaskLog()
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
+                                               orderby d.Time descending
                                                select d;
 
 
@@ -256,6 +265,7 @@ namespace Podchody.Models
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                where d.IdTeam == id
+                                               orderby d.Time descending
                                                select d;
 
             return data.ToList();
@@ -265,6 +275,7 @@ namespace Podchody.Models
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                where d.IdSpecialTask == id
+                                               orderby d.Time descending
                                                select d;
 
             return data.ToList();

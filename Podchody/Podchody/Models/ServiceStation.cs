@@ -50,5 +50,10 @@ namespace Podchody.Models
                 return true;
             return false;
         }
+
+        public int NumberOfStation()
+        {
+            return db.AmountStation();
+        }
     }
 }

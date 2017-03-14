@@ -27,7 +27,7 @@ namespace Podchody.Controllers
                 return BadRequest(error);
             }
             s = service.GetNextStation(id, out st);
-            if(s != "")
+            if (s != "")
             {
                 return BadRequest(s);
             }
