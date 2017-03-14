@@ -25,8 +25,16 @@ namespace Podchody.Models
 
             if (db.IsExistTeam(g))
             {
-                db.AddToStationLog(id);
                 team = db.GetTeam(id);
+                if (team.CurrentStation < db.AmountStation())
+                {
+                    db.AddToStationLog(id);
+                }
+                else
+                {
+                    station = null;
+                    return "Stacja out of the index";
+                }
                 station = db.GetStation(team.CurrentStation);
                 return "";
             }

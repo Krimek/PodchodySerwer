@@ -120,8 +120,7 @@ namespace Podchody.Page
             {
 
                 Models.ServiceDataBase sdb = new Models.ServiceDataBase();
-                sdb.ClearTable("STATION");
-                sdb.ClearTable("SPECIALTASK");
+                sdb.ClearAllTable();
 
                 currentAmmountAddingStation = 1;
                 amountAddingStation = Convert.ToInt32(amountStationTextBox.Text);

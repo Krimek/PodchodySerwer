@@ -13,13 +13,22 @@ namespace Podchody.Page {
     public partial class Managment {
         
         /// <summary>
-        /// TeamDataGrid control.
+        /// NewGameButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid TeamDataGrid;
+        protected global::System.Web.UI.WebControls.Button NewGameButton;
+        
+        /// <summary>
+        /// TeamGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView TeamGridView;
         
         /// <summary>
         /// StationDropDownList control.
@@ -31,13 +40,13 @@ namespace Podchody.Page {
         protected global::System.Web.UI.WebControls.DropDownList StationDropDownList;
         
         /// <summary>
-        /// StationDataGrid control.
+        /// StationGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid StationDataGrid;
+        protected global::System.Web.UI.WebControls.GridView StationGridView;
         
         /// <summary>
         /// SpecialTaskDropDownList control.
@@ -49,12 +58,30 @@ namespace Podchody.Page {
         protected global::System.Web.UI.WebControls.DropDownList SpecialTaskDropDownList;
         
         /// <summary>
-        /// SpecialTaskDataGrid control.
+        /// SpecialTaskGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid SpecialTaskDataGrid;
+        protected global::System.Web.UI.WebControls.DataGrid SpecialTaskGridView;
+        
+        /// <summary>
+        /// HintDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList HintDropDownList;
+        
+        /// <summary>
+        /// HintGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataGrid HintGridView;
     }
 }

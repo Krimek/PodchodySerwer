@@ -21,7 +21,8 @@ namespace Podchody.Models
             string[] table = { "TEAM", "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG", "HINTLOG" };
             foreach (string s in table)
             {
-                dataBase.ExecuteCommand("DELETE FROM {0}", s);
+                string st = "DELETE FROM " + s;
+                dataBase.ExecuteCommand(st);
             }
         }
 
@@ -171,13 +172,12 @@ namespace Podchody.Models
         }
 
 #endregion
-
-
-        public List<int> GetStationNumber()
+        
+        public List<Station> GetAllStation()
         {
-            IEnumerable<int> data = from st in dataBase.Stations
+            IEnumerable<Station> data = from st in dataBase.Stations
                                     orderby st.NumberOfStation
-                                    select st.NumberOfStation;
+                                    select st;
 
             return data.ToList();
         }
@@ -192,11 +192,11 @@ namespace Podchody.Models
             return data.Single();
         }
 
-        public List<string> GetSpecialTaskName()
+        public List<SpecialTask> GetAllSpecialTask()
         {
-            IEnumerable<string> data = from sp in dataBase.SpecialTasks
-                                       orderby sp.Name
-                                       select sp.Name;
+            IEnumerable<SpecialTask> data = from sp in dataBase.SpecialTasks
+                                            orderby sp.Name
+                                            select sp;
 
             return data.ToList();
         }
@@ -209,7 +209,7 @@ namespace Podchody.Models
             return data.Single();
         }
 
-        private Station GetStation(string id)
+        public Station GetStation(string id)
         {
             IEnumerable<Station> station = from st in dataBase.Stations
                                            where st.Id == id
@@ -310,6 +310,16 @@ namespace Podchody.Models
                                      select d;
 
             return data.ToList();
+        }
+
+        public SpecialTask GetSpecialTask(string id)
+        {
+            foreach (SpecialTask specialTask in dataBase.SpecialTasks)
+            {
+                if (specialTask.Id == id)
+                    return specialTask;
+            }
+            return null;
         }
         
         /// <summary>
