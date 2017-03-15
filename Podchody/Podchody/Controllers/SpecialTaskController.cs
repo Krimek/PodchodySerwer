@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Podchody.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,17 +11,41 @@ namespace Podchody.Controllers
     public class SpecialTaskController : ApiController
     {
 
-        //przy każdej kolejnej wskazówce pobranej musisz się zapytać czy jest specjalne zadanie.
-
-        public string Get(string id)
+        [HttpGet]
+        public IHttpActionResult Get()
         {
-            return "zadanie specjalne, pobrane";
+            ServiceSpecialTask service = new ServiceSpecialTask();
+            SpecialTask st;
+            string id, s = "";
+            try
+            {
+                s = "id";
+                id = Request.Headers.GetValues(s).FirstOrDefault();
+            }
+            catch
+            {
+                string error = "Can't find " + s + "headers";
+                return BadRequest(error);
+            }
+            s = service.GetSpecialTask(id, out st);
+
+            if (s == "Brak")
+            {
+                return Ok("Brak zadania specjalnego dla danej stacji");
+            }
+            else if (s != "")
+            {
+                return BadRequest(s);
+            }
+            
+            return Ok(st);
         }
 
-        // POST: podchody/api/SpecialTask
-        public string Post(string id, [FromBody]string value)
+        [HttpPost]
+        public IHttpActionResult Post()
         {
-            return "zadanie specjalne, wykonane";
+
+            return Ok();
         }
     }
 }

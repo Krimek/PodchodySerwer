@@ -11,7 +11,7 @@ namespace Podchody.Controllers
     public class TeamController : ApiController
     {
         [HttpPost]
-        public IHttpActionResult Pos()
+        public IHttpActionResult Post()
         {
             ServiceStation service = new ServiceStation();
             Station st;
@@ -27,15 +27,19 @@ namespace Podchody.Controllers
                 return BadRequest(error);
             }
             s = service.GetNextStation(id, out st);
-            if (s != "")
+
+            if (s == "Finish")
+            {
+                return Ok("Finish");
+            }
+            else if (s != "")
             {
                 return BadRequest(s);
             }
-
-            if (service.IsFinish(id))
-                return Ok("Finish");
-
-            return Ok(st);
+            else
+            {
+                return Ok(new { idStation = st.Id, numberOfStation = st.NumberOfStation, description = st.Description, hint = st.Hint, fullHint = st.NextPlace, code = st.Code });
+            }
         }
     }
 }

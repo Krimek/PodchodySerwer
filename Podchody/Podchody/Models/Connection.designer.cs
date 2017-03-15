@@ -30,9 +30,6 @@ namespace Podchody.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertStation(Station instance);
-    partial void UpdateStation(Station instance);
-    partial void DeleteStation(Station instance);
     partial void InsertSpecialTask(SpecialTask instance);
     partial void UpdateSpecialTask(SpecialTask instance);
     partial void DeleteSpecialTask(SpecialTask instance);
@@ -48,6 +45,9 @@ namespace Podchody.Models
     partial void InsertTeam(Team instance);
     partial void UpdateTeam(Team instance);
     partial void DeleteTeam(Team instance);
+    partial void InsertStation(Station instance);
+    partial void UpdateStation(Station instance);
+    partial void DeleteStation(Station instance);
     #endregion
 		
 		public ConnectionDataContext() : 
@@ -78,14 +78,6 @@ namespace Podchody.Models
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Station> Stations
-		{
-			get
-			{
-				return this.GetTable<Station>();
-			}
 		}
 		
 		public System.Data.Linq.Table<SpecialTask> SpecialTasks
@@ -127,271 +119,13 @@ namespace Podchody.Models
 				return this.GetTable<Team>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Station")]
-	public partial class Station : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Id;
-		
-		private int _NumberOfStation;
-		
-		private string _Description;
-		
-		private string _Hint;
-		
-		private string _NextPlace;
-		
-		private string _Location;
-		
-		private EntitySet<SpecialTask> _SpecialTasks;
-		
-		private EntitySet<HintLog> _HintLogs;
-		
-		private EntitySet<StationLog> _StationLogs;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(string value);
-    partial void OnIdChanged();
-    partial void OnNumberOfStationChanging(int value);
-    partial void OnNumberOfStationChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnHintChanging(string value);
-    partial void OnHintChanged();
-    partial void OnNextPlaceChanging(string value);
-    partial void OnNextPlaceChanged();
-    partial void OnLocationChanging(string value);
-    partial void OnLocationChanged();
-    #endregion
-		
-		public Station()
-		{
-			this._SpecialTasks = new EntitySet<SpecialTask>(new Action<SpecialTask>(this.attach_SpecialTasks), new Action<SpecialTask>(this.detach_SpecialTasks));
-			this._HintLogs = new EntitySet<HintLog>(new Action<HintLog>(this.attach_HintLogs), new Action<HintLog>(this.detach_HintLogs));
-			this._StationLogs = new EntitySet<StationLog>(new Action<StationLog>(this.attach_StationLogs), new Action<StationLog>(this.detach_StationLogs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Id
+		public System.Data.Linq.Table<Station> Stations
 		{
 			get
 			{
-				return this._Id;
+				return this.GetTable<Station>();
 			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfStation", DbType="Int NOT NULL")]
-		public int NumberOfStation
-		{
-			get
-			{
-				return this._NumberOfStation;
-			}
-			set
-			{
-				if ((this._NumberOfStation != value))
-				{
-					this.OnNumberOfStationChanging(value);
-					this.SendPropertyChanging();
-					this._NumberOfStation = value;
-					this.SendPropertyChanged("NumberOfStation");
-					this.OnNumberOfStationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hint", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string Hint
-		{
-			get
-			{
-				return this._Hint;
-			}
-			set
-			{
-				if ((this._Hint != value))
-				{
-					this.OnHintChanging(value);
-					this.SendPropertyChanging();
-					this._Hint = value;
-					this.SendPropertyChanged("Hint");
-					this.OnHintChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NextPlace", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string NextPlace
-		{
-			get
-			{
-				return this._NextPlace;
-			}
-			set
-			{
-				if ((this._NextPlace != value))
-				{
-					this.OnNextPlaceChanging(value);
-					this.SendPropertyChanging();
-					this._NextPlace = value;
-					this.SendPropertyChanged("NextPlace");
-					this.OnNextPlaceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string Location
-		{
-			get
-			{
-				return this._Location;
-			}
-			set
-			{
-				if ((this._Location != value))
-				{
-					this.OnLocationChanging(value);
-					this.SendPropertyChanging();
-					this._Location = value;
-					this.SendPropertyChanged("Location");
-					this.OnLocationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_SpecialTask", Storage="_SpecialTasks", ThisKey="Id", OtherKey="IdStation")]
-		public EntitySet<SpecialTask> SpecialTasks
-		{
-			get
-			{
-				return this._SpecialTasks;
-			}
-			set
-			{
-				this._SpecialTasks.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_HintLog", Storage="_HintLogs", ThisKey="Id", OtherKey="IdStation")]
-		public EntitySet<HintLog> HintLogs
-		{
-			get
-			{
-				return this._HintLogs;
-			}
-			set
-			{
-				this._HintLogs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_StationLog", Storage="_StationLogs", ThisKey="Id", OtherKey="IdStation")]
-		public EntitySet<StationLog> StationLogs
-		{
-			get
-			{
-				return this._StationLogs;
-			}
-			set
-			{
-				this._StationLogs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SpecialTasks(SpecialTask entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = this;
-		}
-		
-		private void detach_SpecialTasks(SpecialTask entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = null;
-		}
-		
-		private void attach_HintLogs(HintLog entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = this;
-		}
-		
-		private void detach_HintLogs(HintLog entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = null;
-		}
-		
-		private void attach_StationLogs(StationLog entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = this;
-		}
-		
-		private void detach_StationLogs(StationLog entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = null;
 		}
 	}
 	
@@ -579,7 +313,7 @@ namespace Podchody.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_SpecialTask", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_SpecialTask", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Station Station
 		{
 			get
@@ -880,9 +614,9 @@ namespace Podchody.Models
 		
 		private System.DateTime _Time;
 		
-		private EntityRef<Station> _Station;
-		
 		private EntityRef<Team> _Team;
+		
+		private EntityRef<Station> _Station;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -904,8 +638,8 @@ namespace Podchody.Models
 		
 		public HintLog()
 		{
-			this._Station = default(EntityRef<Station>);
 			this._Team = default(EntityRef<Team>);
+			this._Station = default(EntityRef<Station>);
 			OnCreated();
 		}
 		
@@ -1037,40 +771,6 @@ namespace Podchody.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_HintLog", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Station Station
-		{
-			get
-			{
-				return this._Station.Entity;
-			}
-			set
-			{
-				Station previousValue = this._Station.Entity;
-				if (((previousValue != value) 
-							|| (this._Station.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Station.Entity = null;
-						previousValue.HintLogs.Remove(this);
-					}
-					this._Station.Entity = value;
-					if ((value != null))
-					{
-						value.HintLogs.Add(this);
-						this._IdStation = value.Id;
-					}
-					else
-					{
-						this._IdStation = default(string);
-					}
-					this.SendPropertyChanged("Station");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_HintLog", Storage="_Team", ThisKey="IdTeam", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Team Team
 		{
@@ -1101,6 +801,40 @@ namespace Podchody.Models
 						this._IdTeam = default(string);
 					}
 					this.SendPropertyChanged("Team");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_HintLog", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Station Station
+		{
+			get
+			{
+				return this._Station.Entity;
+			}
+			set
+			{
+				Station previousValue = this._Station.Entity;
+				if (((previousValue != value) 
+							|| (this._Station.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Station.Entity = null;
+						previousValue.HintLogs.Remove(this);
+					}
+					this._Station.Entity = value;
+					if ((value != null))
+					{
+						value.HintLogs.Add(this);
+						this._IdStation = value.Id;
+					}
+					else
+					{
+						this._IdStation = default(string);
+					}
+					this.SendPropertyChanged("Station");
 				}
 			}
 		}
@@ -1140,9 +874,9 @@ namespace Podchody.Models
 		
 		private System.DateTime _Time;
 		
-		private EntityRef<Station> _Station;
-		
 		private EntityRef<Team> _Team;
+		
+		private EntityRef<Station> _Station;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1160,8 +894,8 @@ namespace Podchody.Models
 		
 		public StationLog()
 		{
-			this._Station = default(EntityRef<Station>);
 			this._Team = default(EntityRef<Team>);
+			this._Station = default(EntityRef<Station>);
 			OnCreated();
 		}
 		
@@ -1253,40 +987,6 @@ namespace Podchody.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_StationLog", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Station Station
-		{
-			get
-			{
-				return this._Station.Entity;
-			}
-			set
-			{
-				Station previousValue = this._Station.Entity;
-				if (((previousValue != value) 
-							|| (this._Station.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Station.Entity = null;
-						previousValue.StationLogs.Remove(this);
-					}
-					this._Station.Entity = value;
-					if ((value != null))
-					{
-						value.StationLogs.Add(this);
-						this._IdStation = value.Id;
-					}
-					else
-					{
-						this._IdStation = default(string);
-					}
-					this.SendPropertyChanged("Station");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_StationLog", Storage="_Team", ThisKey="IdTeam", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Team Team
 		{
@@ -1317,6 +1017,40 @@ namespace Podchody.Models
 						this._IdTeam = default(string);
 					}
 					this.SendPropertyChanged("Team");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_StationLog", Storage="_Station", ThisKey="IdStation", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Station Station
+		{
+			get
+			{
+				return this._Station.Entity;
+			}
+			set
+			{
+				Station previousValue = this._Station.Entity;
+				if (((previousValue != value) 
+							|| (this._Station.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Station.Entity = null;
+						previousValue.StationLogs.Remove(this);
+					}
+					this._Station.Entity = value;
+					if ((value != null))
+					{
+						value.StationLogs.Add(this);
+						this._IdStation = value.Id;
+					}
+					else
+					{
+						this._IdStation = default(string);
+					}
+					this.SendPropertyChanged("Station");
 				}
 			}
 		}
@@ -1653,6 +1387,296 @@ namespace Podchody.Models
 		{
 			this.SendPropertyChanging();
 			entity.Team = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Station")]
+	public partial class Station : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Id;
+		
+		private int _NumberOfStation;
+		
+		private string _Description;
+		
+		private string _Hint;
+		
+		private string _NextPlace;
+		
+		private string _Location;
+		
+		private string _Code;
+		
+		private EntitySet<SpecialTask> _SpecialTasks;
+		
+		private EntitySet<HintLog> _HintLogs;
+		
+		private EntitySet<StationLog> _StationLogs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(string value);
+    partial void OnIdChanged();
+    partial void OnNumberOfStationChanging(int value);
+    partial void OnNumberOfStationChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnHintChanging(string value);
+    partial void OnHintChanged();
+    partial void OnNextPlaceChanging(string value);
+    partial void OnNextPlaceChanged();
+    partial void OnLocationChanging(string value);
+    partial void OnLocationChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    #endregion
+		
+		public Station()
+		{
+			this._SpecialTasks = new EntitySet<SpecialTask>(new Action<SpecialTask>(this.attach_SpecialTasks), new Action<SpecialTask>(this.detach_SpecialTasks));
+			this._HintLogs = new EntitySet<HintLog>(new Action<HintLog>(this.attach_HintLogs), new Action<HintLog>(this.detach_HintLogs));
+			this._StationLogs = new EntitySet<StationLog>(new Action<StationLog>(this.attach_StationLogs), new Action<StationLog>(this.detach_StationLogs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Char(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfStation", DbType="Int NOT NULL")]
+		public int NumberOfStation
+		{
+			get
+			{
+				return this._NumberOfStation;
+			}
+			set
+			{
+				if ((this._NumberOfStation != value))
+				{
+					this.OnNumberOfStationChanging(value);
+					this.SendPropertyChanging();
+					this._NumberOfStation = value;
+					this.SendPropertyChanged("NumberOfStation");
+					this.OnNumberOfStationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hint", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Hint
+		{
+			get
+			{
+				return this._Hint;
+			}
+			set
+			{
+				if ((this._Hint != value))
+				{
+					this.OnHintChanging(value);
+					this.SendPropertyChanging();
+					this._Hint = value;
+					this.SendPropertyChanged("Hint");
+					this.OnHintChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NextPlace", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string NextPlace
+		{
+			get
+			{
+				return this._NextPlace;
+			}
+			set
+			{
+				if ((this._NextPlace != value))
+				{
+					this.OnNextPlaceChanging(value);
+					this.SendPropertyChanging();
+					this._NextPlace = value;
+					this.SendPropertyChanged("NextPlace");
+					this.OnNextPlaceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this.OnLocationChanging(value);
+					this.SendPropertyChanging();
+					this._Location = value;
+					this.SendPropertyChanged("Location");
+					this.OnLocationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="Char(10) NOT NULL", CanBeNull=false)]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_SpecialTask", Storage="_SpecialTasks", ThisKey="Id", OtherKey="IdStation")]
+		public EntitySet<SpecialTask> SpecialTasks
+		{
+			get
+			{
+				return this._SpecialTasks;
+			}
+			set
+			{
+				this._SpecialTasks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_HintLog", Storage="_HintLogs", ThisKey="Id", OtherKey="IdStation")]
+		public EntitySet<HintLog> HintLogs
+		{
+			get
+			{
+				return this._HintLogs;
+			}
+			set
+			{
+				this._HintLogs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_StationLog", Storage="_StationLogs", ThisKey="Id", OtherKey="IdStation")]
+		public EntitySet<StationLog> StationLogs
+		{
+			get
+			{
+				return this._StationLogs;
+			}
+			set
+			{
+				this._StationLogs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SpecialTasks(SpecialTask entity)
+		{
+			this.SendPropertyChanging();
+			entity.Station = this;
+		}
+		
+		private void detach_SpecialTasks(SpecialTask entity)
+		{
+			this.SendPropertyChanging();
+			entity.Station = null;
+		}
+		
+		private void attach_HintLogs(HintLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Station = this;
+		}
+		
+		private void detach_HintLogs(HintLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Station = null;
+		}
+		
+		private void attach_StationLogs(StationLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Station = this;
+		}
+		
+		private void detach_StationLogs(StationLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Station = null;
 		}
 	}
 }

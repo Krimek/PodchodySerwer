@@ -55,6 +55,7 @@ namespace Podchody.Models
         public void AddNewStation(string desciption, string hint, string nextPlace, string localization, int numberStation)
         {
             guid = Guid.NewGuid();
+            App_Code.Security sec = new App_Code.Security();
             Station newStation = new Station()
             {
                 Id = guid.ToString(),
@@ -62,7 +63,8 @@ namespace Podchody.Models
                 Hint = hint,
                 NextPlace = nextPlace,
                 Location = localization,
-                NumberOfStation = numberStation
+                NumberOfStation = numberStation,
+                Code = sec.GenerateStationCode()
             };
 
             dataBase.Stations.InsertOnSubmit(newStation);
@@ -312,6 +314,15 @@ namespace Podchody.Models
                 }
             }
             return false;
+        }
+
+        public SpecialTask GetSpecialTaskFromStation(string idStation)
+        {
+            IEnumerable<SpecialTask> data = from d in dataBase.SpecialTasks
+                                            where d.IdStation == idStation
+                                            select d;
+
+            return data.SingleOrDefault();
         }
 
         public List<Team> GetAllTeam()

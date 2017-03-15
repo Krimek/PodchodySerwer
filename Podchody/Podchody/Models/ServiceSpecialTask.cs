@@ -32,13 +32,33 @@ namespace Podchody.Models
                     return "Jesteś już na mecie";
                 }
                 Station st = db.GetStation(currSt);
-
-
+                specialTask = db.GetSpecialTaskFromStation(st.Id);
+                if (specialTask == null)
+                    return "Brak";
+                return "";
             }
             specialTask = null;
             return "Nie istnieje zespół o zadanym id";
 
         }
+
+        public bool AcceptSpecialTask(string id, string idTeam)
+        {
+            Team team;
+            Guid g;
+            if (!Guid.TryParse(id, out g))
+            {
+                return false;
+            }
+            if (db.IsExistTeam(g.ToString()))
+            {
+                team = db.GetTeam(id);
+
+                return true;
+            }
+            return true;
+        }
+
         public int NumberOfSpecialTask()
         {
             return db.AmountSpecialTask();

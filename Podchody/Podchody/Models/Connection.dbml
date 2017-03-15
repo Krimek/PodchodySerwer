@@ -1,18 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CityGame" Class="ConnectionDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=gramiejskapodchody.database.windows.net;Initial Catalog=CityGame;User ID=Krimek;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CityGameConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Station" Member="Stations">
-    <Type Name="Station">
-      <Column Name="Id" Type="System.String" DbType="Char(36) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="NumberOfStation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="Hint" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="NextPlace" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="Location" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Station_SpecialTask" Member="SpecialTasks" ThisKey="Id" OtherKey="IdStation" Type="SpecialTask" />
-      <Association Name="Station_HintLog" Member="HintLogs" ThisKey="Id" OtherKey="IdStation" Type="HintLog" />
-      <Association Name="Station_StationLog" Member="StationLogs" ThisKey="Id" OtherKey="IdStation" Type="StationLog" />
-    </Type>
-  </Table>
   <Table Name="dbo.SpecialTask" Member="SpecialTasks">
     <Type Name="SpecialTask">
       <Column Name="Id" Type="System.String" DbType="Char(36) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -22,7 +9,7 @@
       <Column Name="IdStation" Type="System.String" DbType="Char(36) NOT NULL" CanBeNull="false" />
       <Column Name="NumberOfSpecialTask" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="SpecialTask_SpecialTaskLog" Member="SpecialTaskLogs" ThisKey="Id" OtherKey="IdSpecialTask" Type="SpecialTaskLog" />
-      <Association Name="Station_SpecialTask" Member="Station" ThisKey="IdStation" OtherKey="Id" Type="Station" IsForeignKey="true" />
+      <Association Name="Station_SpecialTask" Member="Station" ThisKey="IdStation" OtherKey="Id" Type="Station" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.SpecialTaskLog" Member="SpecialTaskLogs">
@@ -43,8 +30,8 @@
       <Column Name="Hint" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="NextPlace" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Station_HintLog" Member="Station" ThisKey="IdStation" OtherKey="Id" Type="Station" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Team_HintLog" Member="Team" ThisKey="IdTeam" OtherKey="Id" Type="Team" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Station_HintLog" Member="Station" ThisKey="IdStation" OtherKey="Id" Type="Station" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.StationLog" Member="StationLogs">
@@ -53,8 +40,8 @@
       <Column Name="IdStation" Type="System.String" DbType="Char(36) NOT NULL" CanBeNull="false" />
       <Column Name="IdTeam" Type="System.String" DbType="Char(36) NOT NULL" CanBeNull="false" />
       <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Station_StationLog" Member="Station" ThisKey="IdStation" OtherKey="Id" Type="Station" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Team_StationLog" Member="Team" ThisKey="IdTeam" OtherKey="Id" Type="Team" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Station_StationLog" Member="Station" ThisKey="IdStation" OtherKey="Id" Type="Station" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Team" Member="Teams">
@@ -70,6 +57,20 @@
       <Association Name="Team_SpecialTaskLog" Member="SpecialTaskLogs" ThisKey="Id" OtherKey="IdTeam" Type="SpecialTaskLog" />
       <Association Name="Team_HintLog" Member="HintLogs" ThisKey="Id" OtherKey="IdTeam" Type="HintLog" />
       <Association Name="Team_StationLog" Member="StationLogs" ThisKey="Id" OtherKey="IdTeam" Type="StationLog" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Station" Member="Stations">
+    <Type Name="Station">
+      <Column Name="Id" Type="System.String" DbType="Char(36) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NumberOfStation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Hint" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="NextPlace" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Location" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Station_SpecialTask" Member="SpecialTasks" ThisKey="Id" OtherKey="IdStation" Type="SpecialTask" />
+      <Association Name="Station_HintLog" Member="HintLogs" ThisKey="Id" OtherKey="IdStation" Type="HintLog" />
+      <Association Name="Station_StationLog" Member="StationLogs" ThisKey="Id" OtherKey="IdStation" Type="StationLog" />
     </Type>
   </Table>
 </Database>

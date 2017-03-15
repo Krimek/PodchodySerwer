@@ -26,29 +26,20 @@ namespace Podchody.Models
             if (db.IsExistTeam(g))
             {
                 team = db.GetTeam(id);
-                if (team.CurrentStation < db.AmountStation())
+                if (team.CurrentStation <= db.AmountStation())
                 {
+                    station = db.GetStation(team.CurrentStation);
                     db.AddToStationLog(id);
                 }
                 else
                 {
                     station = null;
-                    return "Stacja out of the index";
+                    return "Finish";
                 }
-                station = db.GetStation(team.CurrentStation);
                 return "";
             }
             station = null;
             return "Nie znaleziono druzyny o zadanym ID";
-        }
-
-        internal bool IsFinish(string id)
-        {
-            Team team;
-            team = db.GetTeam(id);
-            if (team.CurrentStation == db.AmountStation())
-                return true;
-            return false;
         }
 
         public int NumberOfStation()
