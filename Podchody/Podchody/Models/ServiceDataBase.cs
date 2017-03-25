@@ -306,6 +306,15 @@ namespace Podchody.Models
 
         }
 
+        public List<HintLog> GetHintList()
+        {
+            IEnumerable<HintLog> data = from d in dataBase.HintLogs
+                                        orderby d.Time descending
+                                        select d;
+
+            return data.ToList();
+        }
+
         public bool IsHint(string idStation, string idTeam, bool hint, bool nextPlace)
         {
             IEnumerable<HintLog> data = from d in dataBase.HintLogs

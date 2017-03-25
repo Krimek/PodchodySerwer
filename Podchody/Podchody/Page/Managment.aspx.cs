@@ -27,11 +27,12 @@ namespace Podchody.Page
                 ServiceDataBase sdb = new ServiceDataBase();
                 List<StationLog> stationLogList = sdb.GetStationLog();
                 List<SpecialTaskLog> specialTaskLogList = sdb.GetSpecialTaskLog();
+                List<HintLog> hintLogList = sdb.GetHintList();
                 CompleteDropList();
                 CompleteTeamGridView();
                 RefreshStationGridView(stationLogList);
                 RefreshSpecialTaskGridView(specialTaskLogList);
-                RefreshHintGridView();
+                RefreshHintGridView(hintLogList);
             }
         }
 
@@ -124,9 +125,41 @@ namespace Podchody.Page
             SpecialTaskGridView.DataBind();
         }
 
-        private void RefreshHintGridView()
+        private void RefreshHintGridView(List<HintLog> hintLogList)
         {
+            ServiceDataBase sdb = new ServiceDataBase();
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            for (int i = 0; i < headerHintLogGridView.Count(); i++)
+            {
+                dt.Columns.Add(new DataColumn(headerHintLogGridView[i], typeof(string)));
+            }
+            for (int i = 0; i < hintLogList.Count; i++)
+            {
+                Models.Team team = sdb.GetTeam(hintLogList.ElementAt(i).IdTeam);
+                Station station = sdb.GetStation(hintLogList.ElementAt(i).IdStation);
+                dr = dt.NewRow();
+                dr[0] = hintLogList.ElementAt(i).Id;
+                dr[1] = hintLogList.ElementAt(i).Time;
+                dr[2] = hintLogList.ElementAt(i).IdTeam;
+                dr[3] = team.Name;
+                dr[4] = hintLogList.ElementAt(i).IdStation;
+                dr[5] = station.NumberOfStation;
+                if (hintLogList.ElementAt(i).Hint)
+                {
+                    dr[6] = "x";
+                }
 
+                if (hintLogList.ElementAt(i).NextPlace)
+                {
+                    dr[7] = "x";
+                }
+
+                dt.Rows.Add(dr);
+            }
+            HintGridView.Controls.Clear();
+            HintGridView.DataSource = dt;
+            HintGridView.DataBind();
         }
 
         private void CompleteDropList()

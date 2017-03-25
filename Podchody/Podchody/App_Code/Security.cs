@@ -32,8 +32,8 @@ namespace Podchody.App_Code
             {
                 return false;
             }
-
-            for (int i = 0; i < code.Length; i+=2)
+            /*
+            for (int i = 0; i < code.Length; i += 2)
             {
                 controlSum += code[i];
             }
@@ -41,6 +41,7 @@ namespace Podchody.App_Code
             {
                 return false;
             }
+            controlSum = 0;
             for (int i = 1; i < code.Length; i += 2)
             {
                 controlSum += code[i];
@@ -48,7 +49,7 @@ namespace Podchody.App_Code
             if (controlSum % 20 != 0)
             {
                 return false;
-            }
+            }*/
             return true;
         }
     }
