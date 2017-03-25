@@ -26,14 +26,16 @@ namespace Podchody.Models
             if (db.IsExistTeam(g))
             {
                 team = db.GetTeam(id);
-                if (team.CurrentStation <= db.AmountStation())
+                
+                if (team.CurrentStation < db.AmountStation())
                 {
-                    station = db.GetStation(team.CurrentStation);
                     db.AddToStationLog(id);
+                    station = db.GetStation(team.CurrentStation);
                 }
                 else
                 {
                     station = null;
+                    db.AddToStationLog(id);
                     return "Finish";
                 }
                 return "";

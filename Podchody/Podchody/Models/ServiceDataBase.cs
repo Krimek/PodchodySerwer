@@ -18,7 +18,7 @@ namespace Podchody.Models
 
         public void ClearAllTable()
         {
-            string[] table = { "TEAM", "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG", "HINTLOG" };
+            string[] table = { "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG", "HINTLOG" };
             foreach (string s in table)
             {
                 string st = "DELETE FROM " + s;
@@ -42,7 +42,7 @@ namespace Podchody.Models
                 Name = name,
                 AmountHint = 0,
                 AmountNextPlace = 0,
-                CurrentStation = 1
+                CurrentStation = 0
             };
             
 
@@ -100,6 +100,23 @@ namespace Podchody.Models
         {
             Team team = GetTeam(id);
 
+            if(team.CurrentStation == 0)
+            {
+                team.StartTime = DateTime.Now;
+            }
+            else if(team.CurrentStation == AmountStation())
+            {
+                team.FinishTime = DateTime.Now;
+                team.CurrentStation = AmountStation() + 1;
+                dataBase.SubmitChanges();
+                return true;
+            }
+            else if(team.CurrentStation >AmountStation())
+            {
+                return true;
+            }
+
+            team.CurrentStation++;
             Station station = GetStation(team.CurrentStation);
 
             guid = Guid.NewGuid();
@@ -112,7 +129,7 @@ namespace Podchody.Models
                 Time = DateTime.Now
             };
 
-            team.CurrentStation++;
+            
             dataBase.StationLogs.InsertOnSubmit(stationLogNew);
 
             dataBase.SubmitChanges();
@@ -128,30 +145,25 @@ namespace Podchody.Models
             return true;
         }
 
-        public int AmountStation()
-        {
-            return dataBase.Stations.Count(); 
-        }
-
-        internal int AmountSpecialTask()
-        {
-            return dataBase.SpecialTasks.Count();
-        }
-
         /// <summary>
         /// Metoda dodająca zdarzenie do logów podpowiedzi
         /// </summary>
-        public void AddToHintLog(string id, bool hint, bool nextPlace)
+        public bool AddToHintLog(string id, bool hint, bool nextPlace)
         {
             Team team = GetTeam(id);
 
+            if (team.CurrentStation > AmountStation())
+            {
+                return false;
+            }
+
             Station station = GetStation(team.CurrentStation);
             
-            if (!IsHint(station.Id, team.Id, true, false))
+            if (hint && !IsHint(station.Id, team.Id, true, false))
             {
                 team.AmountHint++;
             }
-            else if (!IsHint(station.Id, team.Id, false, true))
+            else if (nextPlace && !IsHint(station.Id, team.Id, false, true))
             {
                 team.AmountNextPlace++;
             }
@@ -172,14 +184,24 @@ namespace Podchody.Models
             if (nextPlace)
                 hintLogNew.NextPlace = true;
 
-            dataBase.Teams.InsertOnSubmit(team);
-
             dataBase.HintLogs.InsertOnSubmit(hintLogNew);
             dataBase.SubmitChanges();
+
+            return true;
         }
 
-#endregion
+        #endregion
         
+        public int AmountStation()
+        {
+            return dataBase.Stations.Count();
+        }
+
+        internal int AmountSpecialTask()
+        {
+            return dataBase.SpecialTasks.Count();
+        }
+
         public List<Station> GetAllStation()
         {
             IEnumerable<Station> data = from st in dataBase.Stations
@@ -360,6 +382,9 @@ namespace Podchody.Models
 
         public bool IsExistTeam(string name)
         {
+            int length = name.Length;
+            for (int i = length; i < 50; i++)
+                name = name + " ";
             List<Team> listTeam = GetAllTeam();
             foreach(Team team in listTeam)
             {

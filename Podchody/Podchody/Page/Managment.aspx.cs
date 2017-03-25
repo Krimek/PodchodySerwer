@@ -54,7 +54,14 @@ namespace Podchody.Page
                 dr[3] = teamList.ElementAt(i).FinishTime;
                 dr[4] = teamList.ElementAt(i).AmountHint;
                 dr[5] = teamList.ElementAt(i).AmountNextPlace;
-                dr[6] = teamList.ElementAt(i).CurrentStation;
+                if (sdb.AmountStation() < teamList.ElementAt(i).CurrentStation)
+                {
+                    dr[6] = "Meta";
+                }
+                else
+                {
+                    dr[6] = teamList.ElementAt(i).CurrentStation;
+                }
                 dr[7] = teamList.ElementAt(i).Points;
                 dt.Rows.Add(dr);
             }

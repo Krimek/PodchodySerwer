@@ -18,7 +18,9 @@ namespace Podchody.Models
         public Guid AddTeam(string name)
         {
             if (db.IsExistTeam(name))
+            {
                 return Guid.Empty;
+            }
 
             return db.AddNewTeam(name);
         }
