@@ -13,7 +13,7 @@ namespace Podchody.Page
     {
         string[] headerTeamGridView = { "Id", "Nazwa druzyny", "Godzina startu", "Godzina mety", "Ilosc podpowiedzi", "Ilosc pelnych podpowiedzi", "Aktualna stacja", "Wynik" };
         string[] headerStationLogGridView = { "Id", "Godzina", "Id drużyny", "Nazwa drużyny", "Id stacji", "Numer stacji" };
-        string[] headerSpecialTaskGridView = { "Id", "Godzina", "Id drużyny", "Nazwa drużyny", "Id zadania specjalnego", "Nazwa zadania", "Przy stacji" };
+        string[] headerSpecialTaskGridView = { "Id", "Godzina", "Id drużyny", "Nazwa drużyny", "Id zadania specjalnego", "Nazwa zadania" };
         string[] headerHintLogGridView = { "Id", "Godzina", "Id drużyny", "Nazwa drużyny", "Id stacji", "Numer stacji", "Podpowiedź", "Pełna podpowiedź" };
         List<Models.Team> teamList;
         List<Station> stationList;

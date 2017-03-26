@@ -12,12 +12,12 @@
     <h3>Zadania specjalne</h3>
     <asp:DropDownList ID="SpecialTaskDropDownList" runat="server" OnSelectedIndexChanged="SpecialTaskDropDownList_SelectedIndexChanged" AutoPostBack="true">
     </asp:DropDownList>
-    <asp:DataGrid ID ="SpecialTaskGridView" runat="server">
-    </asp:DataGrid>
+    <asp:GridView ID ="SpecialTaskGridView" runat="server">
+    </asp:GridView>
     <h3>Podpowiedzi</h3>
     <asp:DropDownList ID="HintDropDownList" runat="server" OnSelectedIndexChanged="SpecialTaskDropDownList_SelectedIndexChanged" AutoPostBack="true">
     </asp:DropDownList>
-    <asp:DataGrid ID ="HintGridView" runat="server">
-    </asp:DataGrid>
+    <asp:GridView ID ="HintGridView" runat="server">
+    </asp:GridView>
 
 </asp:Content>

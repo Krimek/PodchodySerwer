@@ -64,7 +64,7 @@ namespace Podchody.Page {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid SpecialTaskGridView;
+        protected global::System.Web.UI.WebControls.GridView SpecialTaskGridView;
         
         /// <summary>
         /// HintDropDownList control.
@@ -82,6 +82,6 @@ namespace Podchody.Page {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid HintGridView;
+        protected global::System.Web.UI.WebControls.GridView HintGridView;
     }
 }

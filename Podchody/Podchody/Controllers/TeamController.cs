@@ -28,6 +28,12 @@ namespace Podchody.Controllers
             }
             s = service.GetNextStation(id, out st);
 
+            bool specialTas = false;
+            if (s!="Finish" &&st.SpecialTasks.Count > 0)
+            {
+                specialTas = true;
+            }
+
             if (s == "Finish")
             {
                 return Ok("Finish");
@@ -38,7 +44,7 @@ namespace Podchody.Controllers
             }
             else
             {
-                return Ok(new { idStation = st.Id, numberOfStation = st.NumberOfStation, description = st.Description, hint = st.Hint, fullHint = st.NextPlace, code = st.Code });
+                return Ok(new { idStation = st.Id, numberOfStation = st.NumberOfStation, description = st.Description, hint = st.Hint, fullHint = st.NextPlace, code = st.Code, specialTask = specialTas });
             }
         }
     }

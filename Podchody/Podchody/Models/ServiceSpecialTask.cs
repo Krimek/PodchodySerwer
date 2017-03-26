@@ -22,7 +22,7 @@ namespace Podchody.Models
                 specialTask = null;
                 return "Zly format id";
             }
-            if (db.IsExistTeam(g.ToString()))
+            if (db.IsExistTeam(g))
             {
                 team = db.GetTeam(id);
                 int currSt = team.CurrentStation;
@@ -32,7 +32,7 @@ namespace Podchody.Models
                     return "Jesteś już na mecie";
                 }
                 Station st = db.GetStation(currSt);
-                specialTask = db.GetSpecialTaskFromStation(st.Id);
+                specialTask = st.SpecialTasks.FirstOrDefault();
                 if (specialTask == null)
                     return "Brak";
                 return "";
@@ -42,21 +42,34 @@ namespace Podchody.Models
 
         }
 
-        public bool AcceptSpecialTask(string id, string idTeam)
+        public string AcceptSpecialTask(string idSpecialTask, string idTeam)
         {
-            Team team;
-            Guid g;
-            if (!Guid.TryParse(id, out g))
+            Guid gSpecialTask;
+            Guid gTeam;
+            if (!Guid.TryParse(idSpecialTask, out gSpecialTask))
             {
-                return false;
+                return "Zły format IdSpecialTask";
             }
-            if (db.IsExistTeam(g.ToString()))
+            if(!Guid.TryParse(idTeam, out gTeam))
             {
-                team = db.GetTeam(id);
-
-                return true;
+                return "Zły format IdTeam";
             }
-            return true;
+            if (db.IsExistTeam(gTeam))
+            {
+                if (db.GetSpecialTask(idSpecialTask.ToString()) != null)
+                {
+                    if (db.AddToSpecialTaskLog(gTeam, gSpecialTask))
+                    {
+                        return "";
+                    }
+                    else
+                    {
+                        return "Wystapil wewnetrzny blad, sprobuj ponownie";
+                    }
+                }
+                return "Nie istnieje zadanie specjalne o zadanym ID";
+            }
+            return "Nie istnieje zespol o zadanym ID";
         }
 
         public int NumberOfSpecialTask()

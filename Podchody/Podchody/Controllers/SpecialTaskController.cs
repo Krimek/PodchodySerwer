@@ -16,35 +16,61 @@ namespace Podchody.Controllers
         {
             ServiceSpecialTask service = new ServiceSpecialTask();
             SpecialTask st;
-            string id, s = "";
+            string idTeam, s = "";
             try
             {
-                s = "id";
-                id = Request.Headers.GetValues(s).FirstOrDefault();
+                s = "idTeam";
+                idTeam = Request.Headers.GetValues(s).FirstOrDefault();
             }
             catch
             {
                 string error = "Can't find " + s + "headers";
                 return BadRequest(error);
             }
-            s = service.GetSpecialTask(id, out st);
+            s = service.GetSpecialTask(idTeam, out st);
 
             if (s == "Brak")
             {
-                return Ok("Brak zadania specjalnego dla danej stacji");
+                return BadRequest("Brak zadania specjalnego dla danej stacji");
             }
             else if (s != "")
             {
                 return BadRequest(s);
             }
             
-            return Ok(st);
+            return Ok(new { Id = st.Id, Bonus = st.Bonus, Description = st.Description, Name = st.Name, IdStation = st.IdStation, Code = st.Code});
         }
 
         [HttpPost]
         public IHttpActionResult Post()
         {
-
+            ServiceSpecialTask service = new ServiceSpecialTask();
+            string idTeam, idSpecialTask, s = "";
+            try
+            {
+                s = "idTeam";
+                idTeam = Request.Headers.GetValues(s).FirstOrDefault();
+            }
+            catch
+            {
+                string error = "Can't find " + s + "headers";
+                return BadRequest(error);
+            }
+            try
+            {
+                s = "idSpecialTask";
+                idSpecialTask = Request.Headers.GetValues(s).FirstOrDefault();
+            }
+            catch
+            {
+                string error = "Can't find " + s + "headers";
+                return BadRequest(error);
+            }
+            s = service.AcceptSpecialTask(idSpecialTask, idTeam);
+            if(s != "")
+            {
+                return BadRequest(s);
+            }
             return Ok();
         }
     }

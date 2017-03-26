@@ -18,7 +18,7 @@ namespace Podchody.Models
 
         public void ClearAllTable()
         {
-            string[] table = { "STATION", "STATIONLOG", "SPECIALTASK", "SPECIALTASKLOG", "HINTLOG" };
+            string[] table = { "STATION", "STATIONLOG", "SPECIALTASKLOG", "SPECIALTASK", "HINTLOG" };
             foreach (string s in table)
             {
                 string st = "DELETE FROM " + s;
@@ -77,6 +77,7 @@ namespace Podchody.Models
             {
                 guid = Guid.NewGuid();
                 Station station = GetStation(numberOfStation);
+                App_Code.Security sec = new App_Code.Security();
                 SpecialTask newSpecialTask = new SpecialTask()
                 {
                     Id = guid.ToString(),
@@ -84,7 +85,8 @@ namespace Podchody.Models
                     Bonus = bonus,
                     Name = name,
                     IdStation = station.Id,
-                    NumberOfSpecialTask = numberSpecialTask
+                    NumberOfSpecialTask = numberSpecialTask,
+                    Code = sec.GenerateStationCode()
                 };
 
                 dataBase.SpecialTasks.InsertOnSubmit(newSpecialTask);
@@ -138,10 +140,19 @@ namespace Podchody.Models
         }
 
 
-        public bool AddToSpecialTaskLog(Guid id)
+        public bool AddToSpecialTaskLog(Guid idTeam, Guid idSpecialTask)
         {
-            if (!IsExistTeam(id))
-                return false;
+            guid = Guid.NewGuid();
+            SpecialTaskLog specialTaskLogNew = new SpecialTaskLog()
+            {
+                Id = guid.ToString(),
+                IdTeam = idTeam.ToString(),
+                IdSpecialTask = idSpecialTask.ToString(),
+                Time = DateTime.Now
+            };
+
+            dataBase.SpecialTaskLogs.InsertOnSubmit(specialTaskLogNew);
+            dataBase.SubmitChanges();
             return true;
         }
 
@@ -152,7 +163,7 @@ namespace Podchody.Models
         {
             Team team = GetTeam(id);
 
-            if (team.CurrentStation > AmountStation())
+            if (team.CurrentStation > AmountStation() || team.CurrentStation == 0)
             {
                 return false;
             }
@@ -280,8 +291,7 @@ namespace Podchody.Models
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                orderby d.Time descending
                                                select d;
-
-
+            
             return data.ToList();
         }
 
