@@ -305,7 +305,7 @@ namespace Podchody.Models
             return data.ToList();
         }
 
-        public List<SpecialTaskLog> GetSpecialTaskLogByStationId(string id)
+        public List<SpecialTaskLog> GetSpecialTaskLogById(string id)
         {
             IEnumerable<SpecialTaskLog> data = from d in dataBase.SpecialTaskLogs
                                                where d.IdSpecialTask == id
@@ -316,7 +316,7 @@ namespace Podchody.Models
 
         }
 
-        public List<HintLog> GetHintList()
+        public List<HintLog> GetHintLogList()
         {
             IEnumerable<HintLog> data = from d in dataBase.HintLogs
                                         orderby d.Time descending
@@ -374,6 +374,8 @@ namespace Podchody.Models
 
             return data.ToList();
         }
+
+
 
         public SpecialTask GetSpecialTask(string id)
         {

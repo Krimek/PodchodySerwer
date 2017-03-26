@@ -19,15 +19,16 @@ namespace Podchody.Page
         List<Station> stationList;
         List<SpecialTask> specialTaskList;
         List<HintLog> hintLogList;
+        ServiceDataBase sdb;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            sdb = new ServiceDataBase();
             if (!IsPostBack)
             {
-                ServiceDataBase sdb = new ServiceDataBase();
                 List<StationLog> stationLogList = sdb.GetStationLog();
                 List<SpecialTaskLog> specialTaskLogList = sdb.GetSpecialTaskLog();
-                List<HintLog> hintLogList = sdb.GetHintList();
+                List<HintLog> hintLogList = sdb.GetHintLogList();
                 CompleteDropList();
                 CompleteTeamGridView();
                 RefreshStationGridView(stationLogList);
@@ -38,7 +39,6 @@ namespace Podchody.Page
 
         private void CompleteTeamGridView()
         {
-            ServiceDataBase sdb = new ServiceDataBase();
             teamList = sdb.GetAllTeam();
             DataTable dt = new DataTable();
             DataRow dr = null;
@@ -195,12 +195,51 @@ namespace Podchody.Page
 
         protected void StationDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            List<StationLog> stationLogList;
+            if (StationDropDownList.SelectedItem.Text.Equals("Wszystko"))
+            {
+                stationLogList = sdb.GetStationLog();
+            }
+            else
+            {
+                string s = StationDropDownList.SelectedItem.Text;
+                Station station = sdb.GetStation(Convert.ToInt32(s));
+                stationLogList = sdb.GetStationLogByStationId(station.Id);
+            }
+            RefreshStationGridView(stationLogList);
         }
 
         protected void SpecialTaskDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*List<SpecialTaskLog> specialTaskLogList;
+            if (SpecialTaskDropDownList.SelectedItem.Text.Equals("Wszystko"))
+            {
+                specialTaskLogList = sdb.GetSpecialTaskLog();
+            }
+            else
+            {
+                int n = SpecialTaskDropDownList.SelectedIndex;
+                string s = SpecialTaskDropDownList.SelectedItem.Text;
+                SpecialTask specialTask = sdb.GetSpecialTask(SpecialTaskGridView.Columns[4].);
+                specialTaskLogList = sdb.GetSpecialTaskLogById(specialTask.Id);
+            }
+            RefreshStationGridView(stationLogList);*/
+        }
 
+        protected void HintDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<HintLog> hintLogList;
+            if (StationDropDownList.SelectedItem.Text.Equals("Wszystko"))
+            {
+                hintLogList = sdb.GetHintLogList();
+            }
+            else
+            {
+                string s = HintDropDownList.SelectedItem.Text;
+                //Models.Team team = sdb.GetTeam(s);
+                //hintLogList = sdb.GetHintLogByStationId(station.Id);
+            }
+            //RefreshStationGridView(hintLogList);
         }
 
         protected void NewGameButton_Click(object sender, EventArgs e)
@@ -210,7 +249,13 @@ namespace Podchody.Page
 
         protected void TeamDataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = TeamGridView.Rows[TeamGridView.SelectedIndex].Cells[0].ToString();
+            string id = TeamGridView.Rows[TeamGridView.SelectedIndex].Cells[1].Text;
+            Server.Transfer("team.aspx?id=" + id);
+        }
+
+        protected void TeamGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            string id = TeamGridView.Rows[e.NewEditIndex].Cells[1].Text;
             Server.Transfer("team.aspx?id=" + id);
         }
     }
