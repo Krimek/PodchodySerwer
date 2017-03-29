@@ -30,14 +30,14 @@ namespace Podchody.Page
                 List<SpecialTaskLog> specialTaskLogList = sdb.GetSpecialTaskLog();
                 List<HintLog> hintLogList = sdb.GetHintLogList();
                 CompleteDropList();
-                CompleteTeamGridView();
+                RefresheTeamGridView();
                 RefreshStationGridView(stationLogList);
                 RefreshSpecialTaskGridView(specialTaskLogList);
                 RefreshHintGridView(hintLogList);
             }
         }
 
-        private void CompleteTeamGridView()
+        private void RefresheTeamGridView()
         {
             teamList = sdb.GetAllTeam();
             DataTable dt = new DataTable();
@@ -257,6 +257,13 @@ namespace Podchody.Page
         {
             string id = TeamGridView.Rows[e.NewEditIndex].Cells[1].Text;
             Server.Transfer("team.aspx?id=" + id);
+        }
+
+        protected void TeamGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string id = TeamGridView.Rows[e.RowIndex].Cells[1].Text;
+            sdb.DeleteTeam(id);
+            RefresheTeamGridView();
         }
     }
 }

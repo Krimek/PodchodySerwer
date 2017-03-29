@@ -15,25 +15,33 @@ namespace Podchody.Controllers
         {
             ServiceStation service = new ServiceStation();
             Station st;
-            string id, s = "";
+            string idTeam, idStation, s = "";
             try
             {
-                s = "id";
-                id = Request.Headers.GetValues(s).FirstOrDefault();
+                s = "idTeam";
+                idTeam = Request.Headers.GetValues(s).FirstOrDefault();
             }
             catch
             {
-                string error = "Can't find " + s + "headers";
+                string error = "Can't find " + s + " headers";
                 return BadRequest(error);
             }
-            s = service.GetNextStation(id, out st);
-
+            try
+            {
+                s = "idStation";
+                idStation = Request.Headers.GetValues(s).FirstOrDefault();
+            }
+            catch
+            {
+                string error = "Can't find " + s + " headers";
+                return BadRequest(error);
+            }
+            s = service.GetNextStation(idTeam, idStation, out st);
             bool specialTas = false;
-            if (s != "Finish" && st.SpecialTasks.Count > 0)
+            if (s =="" && st.SpecialTasks.Count > 0)
             {
                 specialTas = true;
             }
-
             if (s == "Finish")
             {
                 return Ok("Finish");
@@ -42,6 +50,7 @@ namespace Podchody.Controllers
             {
                 return BadRequest(s);
             }
+            
             else
             {
                 return Ok(new { idStation = st.Id, numberOfStation = st.NumberOfStation, description = st.Description, hint = st.Hint, fullHint = st.NextPlace, code = st.Code, specialTask = specialTas, Location = st.Location });

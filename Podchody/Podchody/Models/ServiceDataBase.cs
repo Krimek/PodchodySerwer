@@ -336,12 +336,17 @@ namespace Podchody.Models
             return data.Single();
         }
 
+        public void DeleteTeam(string id)
+        {
+            dataBase.ExecuteCommand("DELETE FROM TEAM WHERE ID = '" + id + "'");
+        }
+
         public Station GetStation(string id)
         {
             IEnumerable<Station> station = from st in dataBase.Stations
                                            where st.Id == id
                                            select st;
-            return station.Single();
+            return station.SingleOrDefault();
         }
 
         public List<StationLog> GetStationLog()
@@ -502,7 +507,7 @@ namespace Podchody.Models
             return false;
         }
 
-        public bool IsExistTeam(string name,string code)
+        public bool IsExistTeam(string name, string code)
         {
             int length = name.Length;
             for (int i = length; i < 50; i++)

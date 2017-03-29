@@ -62,19 +62,5 @@ namespace Podchody.Models
             }
             return "Wrong id Team";
         }
-
-        public string GetCurrentStation(string id)
-        {
-            Team team = db.GetTeam(id);
-            if(team.CurrentStation == 0)
-            {
-                return "start";
-            }
-            else
-            {
-                Station station = db.GetStation(team.CurrentStation);
-                return station.Id;
-            }
-        }
     }
 }
