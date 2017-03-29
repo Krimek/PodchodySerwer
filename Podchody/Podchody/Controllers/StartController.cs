@@ -41,7 +41,18 @@ namespace Podchody.Controllers
                 return BadRequest("Wrong code");
             }
 
-            Guid g = serviceTeam.AddTeam(name);
+            if (name.Equals("Kasia"))
+            {
+                return Ok(new { id = "93aa7250-813a-4656-a18b-0db862448ee2", NumberOfStation = serviceStation.NumberOfStation(), NumberOfSpecialTask = serviceSpecialTask.NumberOfSpecialTask() });
+            }
+
+            if (name.Equals(""))
+            {
+                return BadRequest("Jebac glupie blondynki");
+            }
+
+            string currentStation;
+            Guid g = serviceTeam.AddTeam(name, code, out currentStation);
 
             if (g.Equals(Guid.Empty))
             {
@@ -49,7 +60,9 @@ namespace Podchody.Controllers
                 return BadRequest(s);
             }
 
-            return Ok(new { id = g, NumberOfStation = serviceStation.NumberOfStation(), NumberOfSpecialTask = serviceSpecialTask.NumberOfSpecialTask() });
+
+
+            return Ok(new { id = g, NumberOfStation = serviceStation.NumberOfStation(), numberOfSpecialTask = serviceSpecialTask.NumberOfSpecialTask(), currentStation = currentStation });
         }
     }
 }

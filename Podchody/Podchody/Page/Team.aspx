@@ -9,4 +9,7 @@
     <asp:Label ID="amountFullHintLabel" runat="server" Text="Ilosc pelnych podpowiedzi: "></asp:Label><br />
     <asp:Label ID="currentStationLabel" runat="server" Text="Aktualna stacja: "></asp:Label><br />
     <asp:Label ID="scoreLabel" runat="server" Text="Punkty: "></asp:Label><br />
+    <div id="station">
+        <asp:GridView ID="stationGridView" runat="server" AutoGenerateColumns="true"/>
+    </div>
 </asp:Content>

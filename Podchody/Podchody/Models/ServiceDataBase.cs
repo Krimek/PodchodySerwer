@@ -33,17 +33,92 @@ namespace Podchody.Models
         }
 
         #region Dodawanie przy tworzeniu nowej instancji
-        public Guid AddNewTeam(string name)
+        public Guid AddNewTeam(string name, string code, bool edit, out string currentStationId)
         {
             guid = Guid.NewGuid();
-            Team newTeam = new Team()
+            Team newTeam;
+            if (edit)
             {
-                Id = guid.ToString(),
-                Name = name,
-                AmountHint = 0,
-                AmountNextPlace = 0,
-                CurrentStation = 0
-            };
+                Team team = GetTeamByName(name);
+                newTeam = new Team()
+                {
+                    Id = guid.ToString(),
+                    StartTime = team.StartTime,
+                    FinishTime = team.FinishTime,
+                    Name = team.Name,
+                    AmountHint = team.AmountHint,
+                    AmountNextPlace = team.AmountNextPlace,
+                    CurrentStation = team.CurrentStation,
+                    Code = team.Code
+                };
+                foreach(SpecialTaskLog sp in dataBase.SpecialTaskLogs)
+                {
+                    if(sp.IdTeam == team.Id)
+                    {
+                        SpecialTaskLog spNew = new SpecialTaskLog()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            IdTeam = newTeam.Id,
+                            IdSpecialTask = sp.IdSpecialTask,
+                            Time = sp.Time
+                        };
+                        dataBase.SpecialTaskLogs.InsertOnSubmit(spNew);
+                    }
+                }
+                foreach(HintLog hi in dataBase.HintLogs)
+                {
+                    if(hi.IdTeam == team.Id)
+                    {
+                        HintLog hintNew = new HintLog()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            IdStation = hi.IdStation,
+                            IdTeam = newTeam.Id,
+                            Time = hi.Time,
+                            Hint = hi.Hint,
+                            NextPlace = hi.NextPlace
+                        };
+                        dataBase.HintLogs.InsertOnSubmit(hintNew);
+                    }
+                }
+                foreach(StationLog st in dataBase.StationLogs)
+                {
+                    if(st.IdTeam == team.Id)
+                    {
+                        StationLog stNew = new StationLog()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            IdTeam = newTeam.Id,
+                            IdStation = st.IdStation,
+                            Time = st.Time
+                        };
+                        dataBase.StationLogs.InsertOnSubmit(stNew);
+                    }
+                }
+                if (newTeam.CurrentStation == 0)
+                {
+                    currentStationId = "start";
+                }
+                else
+                {
+                    Station station = GetStation(team.CurrentStation);
+                    currentStationId = station.Id;
+                }
+                dataBase.ExecuteCommand("DELETE FROM TEAM WHERE ID = '" + team.Id + "'");
+            }
+            else
+            {
+                newTeam = new Team()
+                {
+                    Id = guid.ToString(),
+                    Name = name,
+                    AmountHint = 0,
+                    AmountNextPlace = 0,
+                    CurrentStation = 0,
+                    Code = code
+                };
+                currentStationId = "start";
+            }
             
 
             dataBase.Teams.InsertOnSubmit(newTeam);
@@ -231,6 +306,18 @@ namespace Podchody.Models
 
             return data.Single();
         }
+        public Team GetTeamByName(string name)
+        {
+            int length = name.Length;
+            for (int i = length; i < 50; i++)
+                name = name + " ";
+            IEnumerable<Team> data = from team in dataBase.Teams
+                                     where team.Name == name
+                                     select team;
+
+            return data.Single();
+        }
+
 
         public List<SpecialTask> GetAllSpecialTask()
         {
@@ -401,7 +488,7 @@ namespace Podchody.Models
             return false;
         }
 
-        public bool IsExistTeam(string name)
+        public bool IsExistTeamName(string name)
         {
             int length = name.Length;
             for (int i = length; i < 50; i++)
@@ -414,7 +501,34 @@ namespace Podchody.Models
             }
             return false;
         }
-        
+
+        public bool IsExistTeam(string name,string code)
+        {
+            int length = name.Length;
+            for (int i = length; i < 50; i++)
+                name = name + " ";
+            List<Team> listTeam = GetAllTeam();
+            foreach (Team team in listTeam)
+            {
+                if (team.Name == name && team.Code == code)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int CountPoints(Team team)
+        {
+            int points = 0;
+            DateTime? startTime = team.StartTime;
+            DateTime? finishTime = team.FinishTime;
+            if(startTime != null && finishTime != null)
+            {
+                //startTime.
+            }
+            return points;
+        }
 
     }
 }

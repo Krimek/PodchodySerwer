@@ -15,14 +15,22 @@ namespace Podchody.Models
             security = new App_Code.Security();
         }
 
-        public Guid AddTeam(string name)
+        public Guid AddTeam(string name, string code, out string currentStationId)
         {
-            if (db.IsExistTeam(name))
+            
+            if (db.IsExistTeam(name, code))
             {
+                return db.AddNewTeam(name, code, true, out currentStationId);
+            }
+            else if (db.IsExistTeamName(name))
+            {
+                currentStationId = "";
                 return Guid.Empty;
             }
-
-            return db.AddNewTeam(name);
+            else
+            {
+                return db.AddNewTeam(name, code, false, out currentStationId);
+            }
         }
 
         public string AddTip(string id)
@@ -53,6 +61,20 @@ namespace Podchody.Models
                 return "";
             }
             return "Wrong id Team";
+        }
+
+        public string GetCurrentStation(string id)
+        {
+            Team team = db.GetTeam(id);
+            if(team.CurrentStation == 0)
+            {
+                return "start";
+            }
+            else
+            {
+                Station station = db.GetStation(team.CurrentStation);
+                return station.Id;
+            }
         }
     }
 }

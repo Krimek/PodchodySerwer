@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -21,6 +22,11 @@ namespace Podchody.Page
             amountFullHintLabel.Text += team.AmountNextPlace;
             currentStationLabel.Text += team.CurrentStation;
             scoreLabel.Text += team.Points;
+            foreach(Models.StationLog st in team.StationLogs)
+            {
+                DataTable dt = new DataTable();
+                DataRow dr = null;
+            }
         }
     }
 }
