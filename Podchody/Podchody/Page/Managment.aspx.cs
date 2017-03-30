@@ -18,11 +18,15 @@ namespace Podchody.Page
         List<Models.Team> teamList;
         List<Station> stationList;
         List<SpecialTask> specialTaskList;
-        List<HintLog> hintLogList;
+        //List<HintLog> hintLogList;
         ServiceDataBase sdb;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!App_Code.Properties.LogIn)
+            {
+                Server.Transfer("Index.aspx");
+            }
             sdb = new ServiceDataBase();
             if (!IsPostBack)
             {

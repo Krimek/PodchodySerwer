@@ -9,7 +9,11 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    
     <form id="form1" runat="server">
+        <div id ="logOutDiv" runat="server">
+        <asp:Button ID="logOut" runat="server" Text="Wyloguj" OnClick="logOut_Click"/>
+        </div>
         <div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

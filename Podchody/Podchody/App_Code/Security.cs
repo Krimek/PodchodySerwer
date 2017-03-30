@@ -31,8 +31,7 @@ namespace Podchody.App_Code
             if (code.Length != 8)
             {
                 return false;
-            }
-            /*
+            }/*
             for (int i = 0; i < code.Length; i += 2)
             {
                 controlSum += code[i];

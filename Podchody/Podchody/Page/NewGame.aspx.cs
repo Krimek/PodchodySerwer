@@ -38,6 +38,10 @@ namespace Podchody.Page
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!App_Code.Properties.LogIn)
+            {
+                Server.Transfer("Index.aspx");
+            }
             GenerateStation();
             GenerateSpecialTask();
             finishButton = new Button() { Text = "Przejdź do zarządzania", Enabled = false };

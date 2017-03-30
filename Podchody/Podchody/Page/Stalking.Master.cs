@@ -11,7 +11,16 @@ namespace Podchody.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!App_Code.Properties.LogIn)
+            {
+                logOutDiv.Controls.Clear();
+            }
+        }
 
+        protected void logOut_Click(object sender, EventArgs e)
+        {
+            App_Code.Properties.LogIn = false;
+            Server.Transfer("Index.aspx");
         }
     }
 }

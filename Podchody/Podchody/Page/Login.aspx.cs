@@ -11,12 +11,16 @@ namespace Podchody.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Login1.LoggedIn += new EventHandler(Login_login);
+            
         }
 
-        private void Login_login(object sender, EventArgs e)
+        protected void Log_Click(object sender, EventArgs e)
         {
-            Server.Transfer("Managment.aspx");
+            if (App_Code.Properties.Login == LoginTextBox.Text && App_Code.Properties.Password == PasswordTextBox.Text)
+            {
+                App_Code.Properties.LogIn = true;
+                Server.Transfer("Managment.aspx");
+            }
         }
     }
 }
